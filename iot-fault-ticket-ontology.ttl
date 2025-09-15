@@ -1,0 +1,1049 @@
+# 物联网故障工单本体 (IoT Fault Ticket Ontology)
+# 版本: 1.0.0
+# 日期: 2025-01-08
+# 作者: 亚信科技 AI 研究院
+# 许可: Apache License 2.0
+
+@prefix : <http://www.asiainfo.com/ontology/iot-fault-ticket#> .
+@prefix iotft: <http://www.asiainfo.com/ontology/iot-fault-ticket#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@base <http://www.asiainfo.com/ontology/iot-fault-ticket#> .
+
+<http://www.asiainfo.com/ontology/iot-fault-ticket#> rdf:type owl:Ontology ;
+    owl:versionInfo "1.0.0" ;
+    dcterms:title "物联网故障工单本体"@zh-CN ,
+                   "IoT Fault Ticket Ontology"@en ;
+    dcterms:description "用于描述物联网运营商故障工单管理的本体模型，涵盖工单生命周期、设备管理、故障诊断和数据分析"@zh-CN ;
+    dcterms:creator "亚信科技 AI 研究院" ;
+    dcterms:created "2025-01-08"^^xsd:date ;
+    dcterms:license <http://www.apache.org/licenses/LICENSE-2.0> ;
+    rdfs:comment "本体基于真实物联网运营商故障处理场景设计，提供标准化的概念模型和语义描述"@zh-CN .
+
+#################################################################
+#    对象属性 (Object Properties)
+#################################################################
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#describes
+iotft:describes rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain iotft:Ticket ;
+    rdfs:range iotft:Fault ;
+    rdfs:label "描述"@zh-CN ,
+               "describes"@en ;
+    rdfs:comment "工单所描述的故障"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#reportedBy
+iotft:reportedBy rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain iotft:Ticket ;
+    rdfs:range iotft:Customer ;
+    rdfs:label "报告方"@zh-CN ,
+               "reported by"@en ;
+    rdfs:comment "报告工单的客户"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#assignedTo
+iotft:assignedTo rdf:type owl:ObjectProperty ;
+    rdfs:domain iotft:Ticket ;
+    rdfs:range iotft:Team ;
+    rdfs:label "分配给"@zh-CN ,
+               "assigned to"@en ;
+    rdfs:comment "工单分配给的处理团队"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#affects
+iotft:affects rdf:type owl:ObjectProperty ;
+    rdfs:domain iotft:Fault ;
+    rdfs:range iotft:Device ;
+    rdfs:label "影响"@zh-CN ,
+               "affects"@en ;
+    rdfs:comment "故障影响的设备"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#uses
+iotft:uses rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain iotft:Device ;
+    rdfs:range iotft:SIMCard ;
+    rdfs:label "使用"@zh-CN ,
+               "uses"@en ;
+    rdfs:comment "设备使用的SIM卡"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#boundTo
+iotft:boundTo rdf:type owl:ObjectProperty , owl:InverseFunctionalProperty ;
+    owl:inverseOf iotft:uses ;
+    rdfs:domain iotft:SIMCard ;
+    rdfs:range iotft:Device ;
+    rdfs:label "绑定到"@zh-CN ,
+               "bound to"@en ;
+    rdfs:comment "SIM卡绑定的设备"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#hasRootCause
+iotft:hasRootCause rdf:type owl:ObjectProperty ;
+    rdfs:domain iotft:Fault ;
+    rdfs:range iotft:RootCause ;
+    rdfs:label "根因"@zh-CN ,
+               "has root cause"@en ;
+    rdfs:comment "故障的根本原因"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#resolvedBy
+iotft:resolvedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain iotft:Fault ;
+    rdfs:range iotft:Resolution ;
+    rdfs:label "解决方案"@zh-CN ,
+               "resolved by"@en ;
+    rdfs:comment "故障的解决方案"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#occurredAt
+iotft:occurredAt rdf:type owl:ObjectProperty ;
+    rdfs:domain iotft:Fault ;
+    rdfs:range iotft:Location ;
+    rdfs:label "发生位置"@zh-CN ,
+               "occurred at"@en ;
+    rdfs:comment "故障发生的位置"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#hasSymptom
+iotft:hasSymptom rdf:type owl:ObjectProperty ;
+    rdfs:domain iotft:Fault ;
+    rdfs:range iotft:Symptom ;
+    rdfs:label "症状"@zh-CN ,
+               "has symptom"@en ;
+    rdfs:comment "故障的症状表现"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#subscribesTo
+iotft:subscribesTo rdf:type owl:ObjectProperty ;
+    rdfs:domain iotft:Customer ;
+    rdfs:range iotft:Service ;
+    rdfs:label "订阅"@zh-CN ,
+               "subscribes to"@en ;
+    rdfs:comment "客户订阅的服务"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#hasPolicy
+iotft:hasPolicy rdf:type owl:ObjectProperty ;
+    rdfs:domain iotft:Service ;
+    rdfs:range iotft:Policy ;
+    rdfs:label "策略"@zh-CN ,
+               "has policy"@en ;
+    rdfs:comment "服务的策略配置"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#hasSLA
+iotft:hasSLA rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain iotft:Service ;
+    rdfs:range iotft:SLA ;
+    rdfs:label "服务等级协议"@zh-CN ,
+               "has SLA"@en ;
+    rdfs:comment "服务的SLA协议"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#hasContact
+iotft:hasContact rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain iotft:Customer ;
+    rdfs:range iotft:ContactInfo ;
+    rdfs:label "联系信息"@zh-CN ,
+               "has contact"@en ;
+    rdfs:comment "客户的联系信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#locatedAt
+iotft:locatedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain iotft:Device ;
+    rdfs:range iotft:Location ;
+    rdfs:label "位于"@zh-CN ,
+               "located at"@en ;
+    rdfs:comment "设备所在位置"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#configuredWith
+iotft:configuredWith rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain iotft:SIMCard ;
+    rdfs:range iotft:NetworkConfig ;
+    rdfs:label "配置"@zh-CN ,
+               "configured with"@en ;
+    rdfs:comment "SIM卡的网络配置"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#requires
+iotft:requires rdf:type owl:ObjectProperty ;
+    rdfs:domain iotft:Ticket ;
+    rdfs:range iotft:TestCoordination ;
+    rdfs:label "需要"@zh-CN ,
+               "requires"@en ;
+    rdfs:comment "工单需要的测试协调"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#hasCapabilities
+iotft:hasCapabilities rdf:type owl:ObjectProperty ;
+    rdfs:domain iotft:NetworkConfig ;
+    rdfs:range iotft:NetworkCapability ;
+    rdfs:label "网络能力"@zh-CN ,
+               "has capabilities"@en ;
+    rdfs:comment "网络配置的能力"@zh-CN .
+
+#################################################################
+#    数据属性 (Data Properties)
+#################################################################
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#hasId
+iotft:hasId rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain iotft:Ticket ;
+    rdfs:range xsd:string ;
+    rdfs:label "标识符"@zh-CN ,
+               "has ID"@en ;
+    rdfs:comment "工单的唯一标识符"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#createdAt
+iotft:createdAt rdf:type owl:DatatypeProperty ;
+    rdfs:domain iotft:Ticket ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "创建时间"@zh-CN ,
+               "created at"@en ;
+    rdfs:comment "工单创建时间"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#updatedAt
+iotft:updatedAt rdf:type owl:DatatypeProperty ;
+    rdfs:domain iotft:Ticket ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "更新时间"@zh-CN ,
+               "updated at"@en ;
+    rdfs:comment "工单最后更新时间"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#hasICCID
+iotft:hasICCID rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain iotft:SIMCard ;
+    rdfs:range xsd:string ;
+    rdfs:label "ICCID"@zh-CN ,
+               "has ICCID"@en ;
+    rdfs:comment "SIM卡的ICCID号码"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#hasMSISDN
+iotft:hasMSISDN rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain iotft:SIMCard ;
+    rdfs:range xsd:string ;
+    rdfs:label "MSISDN"@zh-CN ,
+               "has MSISDN"@en ;
+    rdfs:comment "SIM卡的MSISDN号码"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#hasIMSI
+iotft:hasIMSI rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain iotft:SIMCard ;
+    rdfs:range xsd:string ;
+    rdfs:label "IMSI"@zh-CN ,
+               "has IMSI"@en ;
+    rdfs:comment "SIM卡的IMSI号码"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#customerName
+iotft:customerName rdf:type owl:DatatypeProperty ;
+    rdfs:domain iotft:Customer ;
+    rdfs:range xsd:string ;
+    rdfs:label "客户名称"@zh-CN ,
+               "customer name"@en ;
+    rdfs:comment "客户的名称"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#deviceName
+iotft:deviceName rdf:type owl:DatatypeProperty ;
+    rdfs:domain iotft:Device ;
+    rdfs:range xsd:string ;
+    rdfs:label "设备名称"@zh-CN ,
+               "device name"@en ;
+    rdfs:comment "设备的名称"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#confidence
+iotft:confidence rdf:type owl:DatatypeProperty ;
+    rdfs:domain iotft:RootCause ;
+    rdfs:range xsd:float ;
+    rdfs:label "置信度"@zh-CN ,
+               "confidence"@en ;
+    rdfs:comment "根因判断的置信度(0-1)"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#successRate
+iotft:successRate rdf:type owl:DatatypeProperty ;
+    rdfs:domain iotft:Resolution ;
+    rdfs:range xsd:float ;
+    rdfs:label "成功率"@zh-CN ,
+               "success rate"@en ;
+    rdfs:comment "解决方案的成功率(0-1)"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#latitude
+iotft:latitude rdf:type owl:DatatypeProperty ;
+    rdfs:domain iotft:Location ;
+    rdfs:range xsd:float ;
+    rdfs:label "纬度"@zh-CN ,
+               "latitude"@en ;
+    rdfs:comment "位置的纬度坐标"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#longitude
+iotft:longitude rdf:type owl:DatatypeProperty ;
+    rdfs:domain iotft:Location ;
+    rdfs:range xsd:float ;
+    rdfs:label "经度"@zh-CN ,
+               "longitude"@en ;
+    rdfs:comment "位置的经度坐标"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#address
+iotft:address rdf:type owl:DatatypeProperty ;
+    rdfs:domain iotft:Location ;
+    rdfs:range xsd:string ;
+    rdfs:label "地址"@zh-CN ,
+               "address"@en ;
+    rdfs:comment "详细地址"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#frequency
+iotft:frequency rdf:type owl:DatatypeProperty ;
+    rdfs:domain iotft:Symptom ;
+    rdfs:range xsd:string ;
+    rdfs:label "频率"@zh-CN ,
+               "frequency"@en ;
+    rdfs:comment "症状发生频率"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#primaryPhone
+iotft:primaryPhone rdf:type owl:DatatypeProperty ;
+    rdfs:domain iotft:ContactInfo ;
+    rdfs:range xsd:string ;
+    rdfs:label "主要电话"@zh-CN ,
+               "primary phone"@en ;
+    rdfs:comment "主要联系电话"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#email
+iotft:email rdf:type owl:DatatypeProperty ;
+    rdfs:domain iotft:ContactInfo ;
+    rdfs:range xsd:string ;
+    rdfs:label "电子邮件"@zh-CN ,
+               "email"@en ;
+    rdfs:comment "电子邮件地址"@zh-CN .
+
+#################################################################
+#    类 (Classes)
+#################################################################
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#Ticket
+iotft:Ticket rdf:type owl:Class ;
+    rdfs:label "故障工单"@zh-CN ,
+               "Fault Ticket"@en ;
+    rdfs:comment "描述一个完整的故障处理工单，包括从创建到解决的全生命周期"@zh-CN ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty iotft:hasId ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty iotft:hasStatus ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty iotft:reportedBy ;
+        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onClass iotft:Customer
+    ] .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#Customer
+iotft:Customer rdf:type owl:Class ;
+    owl:equivalentClass foaf:Organization ;
+    rdfs:label "客户"@zh-CN ,
+               "Customer"@en ;
+    rdfs:comment "使用物联网服务的客户组织"@zh-CN ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty iotft:customerName ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#Service
+iotft:Service rdf:type owl:Class ;
+    rdfs:subClassOf dcterms:Service ;
+    rdfs:label "服务"@zh-CN ,
+               "Service"@en ;
+    rdfs:comment "提供给客户的物联网服务"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#Device
+iotft:Device rdf:type owl:Class ;
+    rdfs:label "物联网设备"@zh-CN ,
+               "IoT Device"@en ;
+    rdfs:comment "使用物联网卡的终端设备"@zh-CN ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty iotft:deviceType ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty iotft:uses ;
+        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onClass iotft:SIMCard
+    ] ;
+    owl:disjointWith iotft:Fault , iotft:Ticket , iotft:Customer .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#SIMCard
+iotft:SIMCard rdf:type owl:Class ;
+    rdfs:label "物联网卡"@zh-CN ,
+               "IoT SIM Card"@en ;
+    rdfs:comment "用于物联网设备的SIM卡，包括实体卡和eSIM"@zh-CN ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty iotft:hasICCID ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty iotft:hasMSISDN ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#Network
+iotft:Network rdf:type owl:Class ;
+    rdfs:label "网络"@zh-CN ,
+               "Network"@en ;
+    rdfs:comment "通信网络基础设施"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#Fault
+iotft:Fault rdf:type owl:Class ;
+    rdfs:label "故障"@zh-CN ,
+               "Fault"@en ;
+    rdfs:comment "故障的抽象基类，所有具体故障类型都继承自此类"@zh-CN ;
+    owl:disjointWith iotft:Ticket , iotft:Customer , iotft:Device .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#NetworkFault
+iotft:NetworkFault rdf:type owl:Class ;
+    rdfs:subClassOf iotft:Fault ;
+    rdfs:label "网络故障"@zh-CN ,
+               "Network Fault"@en ;
+    rdfs:comment "与网络连接、信号覆盖相关的故障"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#DeviceFault
+iotft:DeviceFault rdf:type owl:Class ;
+    rdfs:subClassOf iotft:Fault ;
+    rdfs:label "设备故障"@zh-CN ,
+               "Device Fault"@en ;
+    rdfs:comment "设备硬件或软件相关的故障"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#ConfigurationFault
+iotft:ConfigurationFault rdf:type owl:Class ;
+    rdfs:subClassOf iotft:Fault ;
+    rdfs:label "配置故障"@zh-CN ,
+               "Configuration Fault"@en ;
+    rdfs:comment "配置错误导致的故障"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#LocationDrift
+iotft:LocationDrift rdf:type owl:Class ;
+    rdfs:subClassOf iotft:Fault ;
+    rdfs:label "位置漂移"@zh-CN ,
+               "Location Drift"@en ;
+    rdfs:comment "设备位置与实际位置不符的特殊故障类型"@zh-CN ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty iotft:actualLocation ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty iotft:reportedLocation ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#FakeBaseStation
+iotft:FakeBaseStation rdf:type owl:Class ;
+    rdfs:subClassOf iotft:Fault ;
+    rdfs:label "伪基站"@zh-CN ,
+               "Fake Base Station"@en ;
+    rdfs:comment "伪基站干扰导致的故障"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#Symptom
+iotft:Symptom rdf:type owl:Class ;
+    rdfs:label "症状"@zh-CN ,
+               "Symptom"@en ;
+    rdfs:comment "故障的症状表现"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#RootCause
+iotft:RootCause rdf:type owl:Class ;
+    rdfs:label "根因"@zh-CN ,
+               "Root Cause"@en ;
+    rdfs:comment "故障的根本原因"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#Resolution
+iotft:Resolution rdf:type owl:Class ;
+    rdfs:label "解决方案"@zh-CN ,
+               "Resolution"@en ;
+    rdfs:comment "故障的解决方案"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#Location
+iotft:Location rdf:type owl:Class ;
+    rdfs:label "位置"@zh-CN ,
+               "Location"@en ;
+    rdfs:comment "地理位置信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#ContactInfo
+iotft:ContactInfo rdf:type owl:Class ;
+    rdfs:subClassOf vcard:VCard ;
+    rdfs:label "联系信息"@zh-CN ,
+               "Contact Information"@en ;
+    rdfs:comment "联系人信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#Team
+iotft:Team rdf:type owl:Class ;
+    rdfs:label "团队"@zh-CN ,
+               "Team"@en ;
+    rdfs:comment "处理工单的团队"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#Policy
+iotft:Policy rdf:type owl:Class ;
+    rdfs:label "策略"@zh-CN ,
+               "Policy"@en ;
+    rdfs:comment "服务策略配置"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#SLA
+iotft:SLA rdf:type owl:Class ;
+    rdfs:label "服务等级协议"@zh-CN ,
+               "Service Level Agreement"@en ;
+    rdfs:comment "服务等级协议定义"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#NetworkConfig
+iotft:NetworkConfig rdf:type owl:Class ;
+    rdfs:label "网络配置"@zh-CN ,
+               "Network Configuration"@en ;
+    rdfs:comment "网络配置信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#TestCoordination
+iotft:TestCoordination rdf:type owl:Class ;
+    rdfs:label "测试协调"@zh-CN ,
+               "Test Coordination"@en ;
+    rdfs:comment "测试协调信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#SignalQuality
+iotft:SignalQuality rdf:type owl:Class ;
+    rdfs:label "信号质量"@zh-CN ,
+               "Signal Quality"@en ;
+    rdfs:comment "网络信号质量分析"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#DataConsumption
+iotft:DataConsumption rdf:type owl:Class ;
+    rdfs:label "数据消耗"@zh-CN ,
+               "Data Consumption"@en ;
+    rdfs:comment "数据流量消耗分析"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#TimePattern
+iotft:TimePattern rdf:type owl:Class ;
+    rdfs:label "时间模式"@zh-CN ,
+               "Time Pattern"@en ;
+    rdfs:comment "故障的时间模式分析"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#BulkFaultPattern
+iotft:BulkFaultPattern rdf:type owl:Class ;
+    rdfs:label "批量故障模式"@zh-CN ,
+               "Bulk Fault Pattern"@en ;
+    rdfs:comment "批量故障的模式分析"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#APN
+iotft:APN rdf:type owl:Class ;
+    rdfs:label "接入点名称"@zh-CN ,
+               "Access Point Name"@en ;
+    rdfs:comment "网络接入点配置"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#QoSProfile
+iotft:QoSProfile rdf:type owl:Class ;
+    rdfs:label "服务质量配置"@zh-CN ,
+               "QoS Profile"@en ;
+    rdfs:comment "服务质量配置文件"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#AccessRestriction
+iotft:AccessRestriction rdf:type owl:Class ;
+    rdfs:label "访问限制"@zh-CN ,
+               "Access Restriction"@en ;
+    rdfs:comment "网络访问限制配置"@zh-CN .
+
+### http://www.asiainfo.com/ontology/iot-fault-ticket#RegionalPolicy
+iotft:RegionalPolicy rdf:type owl:Class ;
+    rdfs:label "区域策略"@zh-CN ,
+               "Regional Policy"@en ;
+    rdfs:comment "区域性策略配置"@zh-CN .
+
+#################################################################
+#    枚举个体 (Enumeration Individuals)
+#################################################################
+
+### 工单状态枚举
+iotft:Open rdf:type owl:NamedIndividual , iotft:TicketStatus ;
+    rdfs:label "开放"@zh-CN , "Open"@en .
+
+iotft:InProgress rdf:type owl:NamedIndividual , iotft:TicketStatus ;
+    rdfs:label "处理中"@zh-CN , "In Progress"@en .
+
+iotft:Pending rdf:type owl:NamedIndividual , iotft:TicketStatus ;
+    rdfs:label "待处理"@zh-CN , "Pending"@en .
+
+iotft:Resolved rdf:type owl:NamedIndividual , iotft:TicketStatus ;
+    rdfs:label "已解决"@zh-CN , "Resolved"@en .
+
+iotft:Closed rdf:type owl:NamedIndividual , iotft:TicketStatus ;
+    rdfs:label "已关闭"@zh-CN , "Closed"@en .
+
+### 优先级枚举
+iotft:Urgent rdf:type owl:NamedIndividual , iotft:Priority ;
+    rdfs:label "紧急"@zh-CN , "Urgent"@en .
+
+iotft:High rdf:type owl:NamedIndividual , iotft:Priority ;
+    rdfs:label "高"@zh-CN , "High"@en .
+
+iotft:Medium rdf:type owl:NamedIndividual , iotft:Priority ;
+    rdfs:label "中"@zh-CN , "Medium"@en .
+
+iotft:Low rdf:type owl:NamedIndividual , iotft:Priority ;
+    rdfs:label "低"@zh-CN , "Low"@en .
+
+### 客户级别枚举
+iotft:Gold rdf:type owl:NamedIndividual , iotft:CustomerTier ;
+    rdfs:label "金牌"@zh-CN , "Gold"@en .
+
+iotft:Silver rdf:type owl:NamedIndividual , iotft:CustomerTier ;
+    rdfs:label "银牌"@zh-CN , "Silver"@en .
+
+iotft:Bronze rdf:type owl:NamedIndividual , iotft:CustomerTier ;
+    rdfs:label "铜牌"@zh-CN , "Bronze"@en .
+
+iotft:Standard rdf:type owl:NamedIndividual , iotft:CustomerTier ;
+    rdfs:label "标准"@zh-CN , "Standard"@en .
+
+### 网络类型枚举
+iotft:2G rdf:type owl:NamedIndividual , iotft:NetworkType ;
+    rdfs:label "2G"@zh-CN , "2G"@en .
+
+iotft:3G rdf:type owl:NamedIndividual , iotft:NetworkType ;
+    rdfs:label "3G"@zh-CN , "3G"@en .
+
+iotft:4G rdf:type owl:NamedIndividual , iotft:NetworkType ;
+    rdfs:label "4G"@zh-CN , "4G"@en .
+
+iotft:5G rdf:type owl:NamedIndividual , iotft:NetworkType ;
+    rdfs:label "5G"@zh-CN , "5G"@en .
+
+iotft:NBIoT rdf:type owl:NamedIndividual , iotft:NetworkType ;
+    rdfs:label "NB-IoT"@zh-CN , "NB-IoT"@en .
+
+### 设备类型枚举
+iotft:ChargingStation rdf:type owl:NamedIndividual , iotft:DeviceType ;
+    rdfs:label "充电桩"@zh-CN , "Charging Station"@en .
+
+iotft:SmartMeter rdf:type owl:NamedIndividual , iotft:DeviceType ;
+    rdfs:label "智能电表"@zh-CN , "Smart Meter"@en .
+
+iotft:VehicleTerminal rdf:type owl:NamedIndividual , iotft:DeviceType ;
+    rdfs:label "车载终端"@zh-CN , "Vehicle Terminal"@en .
+
+iotft:GPS rdf:type owl:NamedIndividual , iotft:DeviceType ;
+    rdfs:label "GPS定位器"@zh-CN , "GPS Tracker"@en .
+
+iotft:POS rdf:type owl:NamedIndividual , iotft:DeviceType ;
+    rdfs:label "POS机"@zh-CN , "POS Terminal"@en .
+
+### 卡类型枚举
+iotft:USIM rdf:type owl:NamedIndividual , iotft:CardType ;
+    rdfs:label "USIM卡"@zh-CN , "USIM Card"@en .
+
+iotft:eSIM rdf:type owl:NamedIndividual , iotft:CardType ;
+    rdfs:label "eSIM卡"@zh-CN , "eSIM Card"@en .
+
+iotft:NanoSIM rdf:type owl:NamedIndividual , iotft:CardType ;
+    rdfs:label "Nano SIM卡"@zh-CN , "Nano SIM Card"@en .
+
+### 卡状态枚举
+iotft:Active rdf:type owl:NamedIndividual , iotft:CardStatus ;
+    rdfs:label "激活"@zh-CN , "Active"@en .
+
+iotft:Suspended rdf:type owl:NamedIndividual , iotft:CardStatus ;
+    rdfs:label "暂停"@zh-CN , "Suspended"@en .
+
+iotft:Inactive rdf:type owl:NamedIndividual , iotft:CardStatus ;
+    rdfs:label "未激活"@zh-CN , "Inactive"@en .
+
+iotft:Testing rdf:type owl:NamedIndividual , iotft:CardStatus ;
+    rdfs:label "测试中"@zh-CN , "Testing"@en .
+
+iotft:BulkOffline rdf:type owl:NamedIndividual , iotft:CardStatus ;
+    rdfs:label "批量离线"@zh-CN , "Bulk Offline"@en .
+
+iotft:Terminated rdf:type owl:NamedIndividual , iotft:CardStatus ;
+    rdfs:label "已终止"@zh-CN , "Terminated"@en .
+
+### 位置类型枚举
+iotft:Underground rdf:type owl:NamedIndividual , iotft:LocationType ;
+    rdfs:label "地下"@zh-CN , "Underground"@en .
+
+iotft:Indoor rdf:type owl:NamedIndividual , iotft:LocationType ;
+    rdfs:label "室内"@zh-CN , "Indoor"@en .
+
+iotft:Outdoor rdf:type owl:NamedIndividual , iotft:LocationType ;
+    rdfs:label "室外"@zh-CN , "Outdoor"@en .
+
+iotft:Urban rdf:type owl:NamedIndividual , iotft:LocationType ;
+    rdfs:label "城市"@zh-CN , "Urban"@en .
+
+iotft:Rural rdf:type owl:NamedIndividual , iotft:LocationType ;
+    rdfs:label "农村"@zh-CN , "Rural"@en .
+
+### 故障类型枚举
+iotft:NetworkFaultType rdf:type owl:NamedIndividual , iotft:FaultType ;
+    rdfs:label "网络故障"@zh-CN , "Network Fault"@en .
+
+iotft:DeviceFaultType rdf:type owl:NamedIndividual , iotft:FaultType ;
+    rdfs:label "设备故障"@zh-CN , "Device Fault"@en .
+
+iotft:ConfigurationFaultType rdf:type owl:NamedIndividual , iotft:FaultType ;
+    rdfs:label "配置故障"@zh-CN , "Configuration Fault"@en .
+
+iotft:BulkFaultType rdf:type owl:NamedIndividual , iotft:FaultType ;
+    rdfs:label "批量故障"@zh-CN , "Bulk Fault"@en .
+
+### 网络故障子类型枚举
+iotft:WirelessNetworkIssue rdf:type owl:NamedIndividual , iotft:NetworkFaultSubtype ;
+    rdfs:label "无线网络问题"@zh-CN , "Wireless Network Issue"@en .
+
+iotft:CoreNetworkIssue rdf:type owl:NamedIndividual , iotft:NetworkFaultSubtype ;
+    rdfs:label "核心网问题"@zh-CN , "Core Network Issue"@en .
+
+iotft:CoverageIssue rdf:type owl:NamedIndividual , iotft:NetworkFaultSubtype ;
+    rdfs:label "覆盖问题"@zh-CN , "Coverage Issue"@en .
+
+iotft:2GNetworkSunset rdf:type owl:NamedIndividual , iotft:NetworkFaultSubtype ;
+    rdfs:label "2G退网"@zh-CN , "2G Network Sunset"@en .
+
+### 症状类型枚举
+iotft:NoConnection rdf:type owl:NamedIndividual , iotft:SymptomType ;
+    rdfs:label "无连接"@zh-CN , "No Connection"@en .
+
+iotft:SlowSpeed rdf:type owl:NamedIndividual , iotft:SymptomType ;
+    rdfs:label "速度慢"@zh-CN , "Slow Speed"@en .
+
+iotft:HighLatency rdf:type owl:NamedIndividual , iotft:SymptomType ;
+    rdfs:label "高延迟"@zh-CN , "High Latency"@en .
+
+iotft:WeakSignal rdf:type owl:NamedIndividual , iotft:SymptomType ;
+    rdfs:label "信号弱"@zh-CN , "Weak Signal"@en .
+
+iotft:FrequentOffline rdf:type owl:NamedIndividual , iotft:SymptomType ;
+    rdfs:label "频繁离线"@zh-CN , "Frequent Offline"@en .
+
+### 根因类型枚举
+iotft:SignalCoverage rdf:type owl:NamedIndividual , iotft:CauseType ;
+    rdfs:label "信号覆盖"@zh-CN , "Signal Coverage"@en .
+
+iotft:NetworkCongestion rdf:type owl:NamedIndividual , iotft:CauseType ;
+    rdfs:label "网络拥塞"@zh-CN , "Network Congestion"@en .
+
+iotft:ConfigError rdf:type owl:NamedIndividual , iotft:CauseType ;
+    rdfs:label "配置错误"@zh-CN , "Configuration Error"@en .
+
+iotft:DeviceFailure rdf:type owl:NamedIndividual , iotft:CauseType ;
+    rdfs:label "设备故障"@zh-CN , "Device Failure"@en .
+
+iotft:PolicyRestriction rdf:type owl:NamedIndividual , iotft:CauseType ;
+    rdfs:label "策略限制"@zh-CN , "Policy Restriction"@en .
+
+iotft:ExternalInterference rdf:type owl:NamedIndividual , iotft:CauseType ;
+    rdfs:label "外部干扰"@zh-CN , "External Interference"@en .
+
+### 解决方案类型枚举
+iotft:NetworkOptimization rdf:type owl:NamedIndividual , iotft:ResolutionType ;
+    rdfs:label "网络优化"@zh-CN , "Network Optimization"@en .
+
+iotft:ConfigChange rdf:type owl:NamedIndividual , iotft:ResolutionType ;
+    rdfs:label "配置变更"@zh-CN , "Configuration Change"@en .
+
+iotft:DeviceReplace rdf:type owl:NamedIndividual , iotft:ResolutionType ;
+    rdfs:label "设备更换"@zh-CN , "Device Replace"@en .
+
+iotft:PolicyUpdate rdf:type owl:NamedIndividual , iotft:ResolutionType ;
+    rdfs:label "策略更新"@zh-CN , "Policy Update"@en .
+
+iotft:ManualIntervention rdf:type owl:NamedIndividual , iotft:ResolutionType ;
+    rdfs:label "人工干预"@zh-CN , "Manual Intervention"@en .
+
+### 团队类型枚举
+iotft:WirelessOpt rdf:type owl:NamedIndividual , iotft:TeamType ;
+    rdfs:label "无线优化"@zh-CN , "Wireless Optimization"@en .
+
+iotft:CoreNetwork rdf:type owl:NamedIndividual , iotft:TeamType ;
+    rdfs:label "核心网"@zh-CN , "Core Network"@en .
+
+iotft:CustomerService rdf:type owl:NamedIndividual , iotft:TeamType ;
+    rdfs:label "客户服务"@zh-CN , "Customer Service"@en .
+
+iotft:FieldSupport rdf:type owl:NamedIndividual , iotft:TeamType ;
+    rdfs:label "现场支持"@zh-CN , "Field Support"@en .
+
+iotft:Platform rdf:type owl:NamedIndividual , iotft:TeamType ;
+    rdfs:label "平台"@zh-CN , "Platform"@en .
+
+### 测试类型枚举
+iotft:SignalTest rdf:type owl:NamedIndividual , iotft:TestType ;
+    rdfs:label "信号测试"@zh-CN , "Signal Test"@en .
+
+iotft:SignalingTrace rdf:type owl:NamedIndividual , iotft:TestType ;
+    rdfs:label "信令跟踪"@zh-CN , "Signaling Trace"@en .
+
+iotft:StressTest rdf:type owl:NamedIndividual , iotft:TestType ;
+    rdfs:label "压力测试"@zh-CN , "Stress Test"@en .
+
+### 配合级别枚举
+iotft:HighCooperation rdf:type owl:NamedIndividual , iotft:CooperationLevel ;
+    rdfs:label "高度配合"@zh-CN , "High Cooperation"@en .
+
+iotft:MediumCooperation rdf:type owl:NamedIndividual , iotft:CooperationLevel ;
+    rdfs:label "中度配合"@zh-CN , "Medium Cooperation"@en .
+
+iotft:LowCooperation rdf:type owl:NamedIndividual , iotft:CooperationLevel ;
+    rdfs:label "低度配合"@zh-CN , "Low Cooperation"@en .
+
+### 时间范围枚举
+iotft:Anytime rdf:type owl:NamedIndividual , iotft:TimeRange ;
+    rdfs:label "随时"@zh-CN , "Anytime"@en .
+
+iotft:Daytime rdf:type owl:NamedIndividual , iotft:TimeRange ;
+    rdfs:label "白天"@zh-CN , "Daytime"@en .
+
+iotft:BeforeNight rdf:type owl:NamedIndividual , iotft:TimeRange ;
+    rdfs:label "夜间前"@zh-CN , "Before Night"@en .
+
+iotft:Specific rdf:type owl:NamedIndividual , iotft:TimeRange ;
+    rdfs:label "特定时间"@zh-CN , "Specific Time"@en .
+
+### 服务类型枚举
+iotft:DataService rdf:type owl:NamedIndividual , iotft:ServiceType ;
+    rdfs:label "数据服务"@zh-CN , "Data Service"@en .
+
+iotft:VoiceService rdf:type owl:NamedIndividual , iotft:ServiceType ;
+    rdfs:label "语音服务"@zh-CN , "Voice Service"@en .
+
+iotft:SMSService rdf:type owl:NamedIndividual , iotft:ServiceType ;
+    rdfs:label "短信服务"@zh-CN , "SMS Service"@en .
+
+iotft:LocationService rdf:type owl:NamedIndividual , iotft:ServiceType ;
+    rdfs:label "定位服务"@zh-CN , "Location Service"@en .
+
+iotft:IoTService rdf:type owl:NamedIndividual , iotft:ServiceType ;
+    rdfs:label "物联网服务"@zh-CN , "IoT Service"@en .
+
+### APN类型枚举
+iotft:Generic rdf:type owl:NamedIndividual , iotft:APNType ;
+    rdfs:label "通用"@zh-CN , "Generic"@en .
+
+iotft:Enterprise rdf:type owl:NamedIndividual , iotft:APNType ;
+    rdfs:label "企业"@zh-CN , "Enterprise"@en .
+
+iotft:Regional rdf:type owl:NamedIndividual , iotft:APNType ;
+    rdfs:label "区域"@zh-CN , "Regional"@en .
+
+iotft:ServiceSpecific rdf:type owl:NamedIndividual , iotft:APNType ;
+    rdfs:label "服务专用"@zh-CN , "Service Specific"@en .
+
+iotft:Test rdf:type owl:NamedIndividual , iotft:APNType ;
+    rdfs:label "测试"@zh-CN , "Test"@en .
+
+### 严重级别枚举
+iotft:Critical rdf:type owl:NamedIndividual , iotft:SeverityLevel ;
+    rdfs:label "严重"@zh-CN , "Critical"@en .
+
+iotft:HighSeverity rdf:type owl:NamedIndividual , iotft:SeverityLevel ;
+    rdfs:label "高"@zh-CN , "High"@en .
+
+iotft:MediumSeverity rdf:type owl:NamedIndividual , iotft:SeverityLevel ;
+    rdfs:label "中"@zh-CN , "Medium"@en .
+
+iotft:LowSeverity rdf:type owl:NamedIndividual , iotft:SeverityLevel ;
+    rdfs:label "低"@zh-CN , "Low"@en .
+
+iotft:Info rdf:type owl:NamedIndividual , iotft:SeverityLevel ;
+    rdfs:label "信息"@zh-CN , "Info"@en .
+
+### 限制级别枚举
+iotft:NoRestriction rdf:type owl:NamedIndividual , iotft:RestrictionLevel ;
+    rdfs:label "无限制"@zh-CN , "No Restriction"@en .
+
+iotft:Restricted rdf:type owl:NamedIndividual , iotft:RestrictionLevel ;
+    rdfs:label "限制"@zh-CN , "Restricted"@en .
+
+iotft:PartiallyRestricted rdf:type owl:NamedIndividual , iotft:RestrictionLevel ;
+    rdfs:label "部分限制"@zh-CN , "Partially Restricted"@en .
+
+iotft:FullyRestricted rdf:type owl:NamedIndividual , iotft:RestrictionLevel ;
+    rdfs:label "完全限制"@zh-CN , "Fully Restricted"@en .
+
+### 规模枚举
+iotft:Small rdf:type owl:NamedIndividual , iotft:Scale ;
+    rdfs:label "小规模(<100)"@zh-CN , "Small(<100)"@en .
+
+iotft:MediumScale rdf:type owl:NamedIndividual , iotft:Scale ;
+    rdfs:label "中规模(100-1000)"@zh-CN , "Medium(100-1000)"@en .
+
+iotft:Large rdf:type owl:NamedIndividual , iotft:Scale ;
+    rdfs:label "大规模(1000-10000)"@zh-CN , "Large(1000-10000)"@en .
+
+iotft:Massive rdf:type owl:NamedIndividual , iotft:Scale ;
+    rdfs:label "超大规模(>10000)"@zh-CN , "Massive(>10000)"@en .
+
+#################################################################
+#    通用注释 (General Annotations)
+#################################################################
+
+iotft:hasStatus rdfs:label "状态"@zh-CN ,
+                          "has status"@en ;
+    rdfs:comment "工单的当前状态"@zh-CN .
+
+iotft:hasPriority rdfs:label "优先级"@zh-CN ,
+                            "has priority"@en ;
+    rdfs:comment "工单的优先级"@zh-CN .
+
+iotft:hasTier rdfs:label "客户级别"@zh-CN ,
+                        "has tier"@en ;
+    rdfs:comment "客户的服务级别"@zh-CN .
+
+iotft:deviceType rdfs:label "设备类型"@zh-CN ,
+                           "device type"@en ;
+    rdfs:comment "物联网设备的类型"@zh-CN .
+
+iotft:cardType rdfs:label "卡类型"@zh-CN ,
+                         "card type"@en ;
+    rdfs:comment "SIM卡的类型"@zh-CN .
+
+iotft:cardStatus rdfs:label "卡状态"@zh-CN ,
+                           "card status"@en ;
+    rdfs:comment "SIM卡的当前状态"@zh-CN .
+
+iotft:locationType rdfs:label "位置类型"@zh-CN ,
+                             "location type"@en ;
+    rdfs:comment "位置的环境类型"@zh-CN .
+
+iotft:faultType rdfs:label "故障类型"@zh-CN ,
+                          "fault type"@en ;
+    rdfs:comment "故障的主要类型"@zh-CN .
+
+iotft:hasSubtype rdfs:label "子类型"@zh-CN ,
+                           "has subtype"@en ;
+    rdfs:comment "故障的具体子类型"@zh-CN .
+
+iotft:symptomType rdfs:label "症状类型"@zh-CN ,
+                            "symptom type"@en ;
+    rdfs:comment "故障症状的类型"@zh-CN .
+
+iotft:severity rdfs:label "严重程度"@zh-CN ,
+                         "severity"@en ;
+    rdfs:comment "故障或症状的严重程度"@zh-CN .
+
+iotft:causeType rdfs:label "原因类型"@zh-CN ,
+                          "cause type"@en ;
+    rdfs:comment "根因的类型"@zh-CN .
+
+iotft:resolutionType rdfs:label "解决方案类型"@zh-CN ,
+                               "resolution type"@en ;
+    rdfs:comment "解决方案的类型"@zh-CN .
+
+iotft:teamType rdfs:label "团队类型"@zh-CN ,
+                         "team type"@en ;
+    rdfs:comment "处理团队的类型"@zh-CN .
+
+iotft:testType rdfs:label "测试类型"@zh-CN ,
+                         "test type"@en ;
+    rdfs:comment "测试的类型"@zh-CN .
+
+iotft:cooperationLevel rdfs:label "配合级别"@zh-CN ,
+                                 "cooperation level"@en ;
+    rdfs:comment "客户的配合程度"@zh-CN .
+
+iotft:availableTime rdfs:label "可用时间"@zh-CN ,
+                              "available time"@en ;
+    rdfs:comment "可以进行测试的时间"@zh-CN .
+
+iotft:serviceType rdfs:label "服务类型"@zh-CN ,
+                            "service type"@en ;
+    rdfs:comment "物联网服务的类型"@zh-CN .
+
+iotft:apnType rdfs:label "APN类型"@zh-CN ,
+                        "APN type"@en ;
+    rdfs:comment "接入点名称的类型"@zh-CN .
+
+iotft:apnName rdfs:label "APN名称"@zh-CN ,
+                        "APN name"@en ;
+    rdfs:comment "接入点名称"@zh-CN .
+
+iotft:networkType rdfs:label "网络类型"@zh-CN ,
+                            "network type"@en ;
+    rdfs:comment "通信网络的类型"@zh-CN .
+
+iotft:restrictionLevel rdfs:label "限制级别"@zh-CN ,
+                                 "restriction level"@en ;
+    rdfs:comment "访问限制的级别"@zh-CN .
+
+iotft:affectedScale rdfs:label "影响规模"@zh-CN ,
+                              "affected scale"@en ;
+    rdfs:comment "故障影响的规模"@zh-CN .
+
+iotft:actualLocation rdfs:label "实际位置"@zh-CN ,
+                               "actual location"@en ;
+    rdfs:comment "设备的实际位置"@zh-CN .
+
+iotft:reportedLocation rdfs:label "上报位置"@zh-CN ,
+                                 "reported location"@en ;
+    rdfs:comment "系统上报的位置"@zh-CN .
+
+iotft:uplinkRate rdfs:label "上行速率"@zh-CN ,
+                           "uplink rate"@en ;
+    rdfs:comment "上行传输速率(bps)"@zh-CN .
+
+iotft:downlinkRate rdfs:label "下行速率"@zh-CN ,
+                             "downlink rate"@en ;
+    rdfs:comment "下行传输速率(bps)"@zh-CN .
+
+iotft:processingDeadline rdfs:label "处理时限"@zh-CN ,
+                                   "processing deadline"@en ;
+    rdfs:comment "工单处理的最后期限"@zh-CN .
+
+iotft:evidence rdfs:label "证据"@zh-CN ,
+                         "evidence"@en ;
+    rdfs:comment "支持根因判断的证据"@zh-CN .
+
+iotft:action rdfs:label "操作"@zh-CN ,
+                       "action"@en ;
+    rdfs:comment "解决方案的具体操作"@zh-CN .
+
+iotft:notes rdfs:label "备注"@zh-CN ,
+                      "notes"@en ;
+    rdfs:comment "额外的说明信息"@zh-CN .
+
+iotft:availability rdfs:label "可用性"@zh-CN ,
+                             "availability"@en ;
+    rdfs:comment "服务可用性或联系人可用时间"@zh-CN .
+
+iotft:province rdfs:label "省份"@zh-CN ,
+                         "province"@en ;
+    rdfs:comment "位置所在省份"@zh-CN .
+
+iotft:city rdfs:label "城市"@zh-CN ,
+                     "city"@en ;
+    rdfs:comment "位置所在城市"@zh-CN .
+
+iotft:district rdfs:label "区县"@zh-CN ,
+                         "district"@en ;
+    rdfs:comment "位置所在区县"@zh-CN .
+
+iotft:teamName rdfs:label "团队名称"@zh-CN ,
+                         "team name"@en ;
+    rdfs:comment "处理团队的名称"@zh-CN .
+
+iotft:contactPerson rdfs:label "联系人"@zh-CN ,
+                              "contact person"@en ;
+    rdfs:comment "联系人姓名"@zh-CN .
+
+iotft:contactPhone rdfs:label "联系电话"@zh-CN ,
+                             "contact phone"@en ;
+    rdfs:comment "联系人电话"@zh-CN .
+
+iotft:implementedBy rdfs:label "实施方"@zh-CN ,
+                              "implemented by"@en ;
+    rdfs:comment "实施解决方案的团队"@zh-CN .
+
+iotft:implementationTime rdfs:label "实施时间"@zh-CN ,
+                                   "implementation time"@en ;
+    rdfs:comment "解决方案的实施时间"@zh-CN .
+
+iotft:detectedAt rdfs:label "检测时间"@zh-CN ,
+                           "detected at"@en ;
+    rdfs:comment "故障被检测到的时间"@zh-CN .
+
+### 本体文件结束 ###
