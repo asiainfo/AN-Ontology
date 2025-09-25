@@ -3,7 +3,7 @@
 版本：1.0.0  
 发布日期：2025-01-08  
 作者：亚信科技 AI 研究院  
-命名空间：`http://www.asiainfo.com/ontology/iot-fault-ticket#`  
+命名空间：`http://www.asiainfo.com/ontology/iot-Complaint-ticket#`  
 前缀：`iotft:`
 
 ## 1. 引言与背景
@@ -19,7 +19,7 @@
 
 ### 1.2 本体价值
 
-物联网故障工单本体（IoT Fault Ticket Ontology）通过提供标准化的概念模型和语义描述，实现：
+物联网故障工单本体（IoT Complaint Ticket Ontology）通过提供标准化的概念模型和语义描述，实现：
 
 1. **知识标准化**：统一故障工单的概念定义和关系描述
 2. **智能化诊断**：支持基于语义推理的故障原因分析
@@ -72,7 +72,7 @@ graph TB
     C --> C2[物联网卡SIMCard]
     C --> C3[网络Network]
     
-    D --> D1[故障Fault]
+    D --> D1[故障Complaint]
     D --> D2[症状Symptom]
     D --> D3[解决方案Resolution]
     
@@ -90,19 +90,19 @@ graph TB
 **本体应用**：
 
 ```turtle
-@prefix iotft: <http://www.asiainfo.com/ontology/iot-fault-ticket#> .
-@prefix ex: <http://example.org/fault-ticket/> .
+@prefix iotft: <http://www.asiainfo.com/ontology/iot-Complaint-ticket#> .
+@prefix ex: <http://example.org/Complaint-ticket/> .
 
 # 故障工单实例
 ex:ticket_001 a iotft:Ticket ;
     iotft:hasId "JT-XXX-XXXXXX-XXXXXX-X-XXXX" ;
     iotft:hasStatus iotft:InProgress ;
     iotft:hasPriority iotft:High ;
-    iotft:describes ex:fault_001 ;
+    iotft:describes ex:Complaint_001 ;
     iotft:reportedBy ex:customer_001 .
 
 # 故障描述
-ex:fault_001 a iotft:NetworkFault ;
+ex:Complaint_001 a iotft:NetworkComplaint ;
     iotft:hasType iotft:FrequentOffline ;
     iotft:hasSymptom [
         a iotft:Symptom ;
@@ -126,7 +126,7 @@ ex:fault_001 a iotft:NetworkFault ;
 ex:device_001 a iotft:Device ;
     iotft:deviceType iotft:ChargingStation ;
     iotft:uses ex:sim_001 ;
-    iotft:experiences ex:fault_001 .
+    iotft:experiences ex:Complaint_001 .
 
 # 解决方案
 ex:resolution_001 a iotft:Resolution ;
@@ -143,12 +143,12 @@ ex:resolution_001 a iotft:Resolution ;
 
 ```turtle
 # 批量故障模式
-ex:bulk_fault_001 a iotft:BulkFaultPattern ;
+ex:bulk_Complaint_001 a iotft:BulkComplaintPattern ;
     iotft:patternId "BF-XXXXXXXX-001" ;
     iotft:affectedScale iotft:Large ;  # 影响1000-10000张卡
     iotft:triggerCause iotft:ConfigChange ;
     iotft:geographicPattern iotft:Regional ;
-    iotft:relatedFaults ex:fault_002, ex:fault_003, ex:fault_004 .
+    iotft:relatedComplaints ex:Complaint_002, ex:Complaint_003, ex:Complaint_004 .
 
 # 数据消耗异常
 ex:consumption_001 a iotft:DataConsumption ;
@@ -176,7 +176,7 @@ ex:consumption_001 a iotft:DataConsumption ;
 
 ```turtle
 # 2G退网故障
-ex:fault_2g_sunset a iotft:NetworkFault ;
+ex:Complaint_2g_sunset a iotft:NetworkComplaint ;
     iotft:hasSubtype iotft:2GNetworkSunset ;
     iotft:affectedDevices [
         a iotft:DeviceGroup ;
@@ -201,20 +201,20 @@ ex:fault_2g_sunset a iotft:NetworkFault ;
 1. **概览与入门**（本文档）
    - 背景介绍、设计理念、使用场景
 
-2. **[核心词汇与模型规范](./IOT-Fault-Ticket-Ontology-Vocabulary-CN.md)**
+2. **[核心词汇与模型规范](./IOT-Complaint-Ticket-Ontology-Vocabulary-CN.md)**
    - 详细的类、属性、关系定义
    - 语义约束和使用规则
 
-3. **[约束与验证规则](./IOT-Fault-Ticket-Ontology-Constraints-CN.md)**（计划中）
+3. **[约束与验证规则](./IOT-Complaint-Ticket-Ontology-Constraints-CN.md)**（计划中）
    - SHACL形状定义
    - 数据质量验证规则
 
 ### 5.2 机器可读文件
 
-1. **[本体定义文件](./iot-fault-ticket-ontology.ttl)**
+1. **[本体定义文件](./iot-Complaint-ticket-ontology.ttl)**
    - Turtle格式的完整本体定义
 
-2. **[SHACL约束文件](./iot-fault-ticket-shapes.ttl)**（计划中）
+2. **[SHACL约束文件](./iot-Complaint-ticket-shapes.ttl)**（计划中）
    - 数据验证规则
 
 ## 6. 快速上手
@@ -227,21 +227,21 @@ wget https://dlcdn.apache.org/jena/binaries/apache-jena-4.9.0.tar.gz
 tar -xzf apache-jena-4.9.0.tar.gz
 
 # 验证本体文件
-./apache-jena-4.9.0/bin/riot --validate iot-fault-ticket-ontology.ttl
+./apache-jena-4.9.0/bin/riot --validate iot-Complaint-ticket-ontology.ttl
 ```
 
 ### 6.2 基础查询示例
 
 ```sparql
-PREFIX iotft: <http://www.asiainfo.com/ontology/iot-fault-ticket#>
+PREFIX iotft: <http://www.asiainfo.com/ontology/iot-Complaint-ticket#>
 
 # 查询所有高优先级的网络故障工单
-SELECT ?ticket ?fault ?rootCause
+SELECT ?ticket ?Complaint ?rootCause
 WHERE {
     ?ticket a iotft:Ticket ;
             iotft:hasPriority iotft:High ;
-            iotft:describes ?fault .
-    ?fault a iotft:NetworkFault ;
+            iotft:describes ?Complaint .
+    ?Complaint a iotft:NetworkComplaint ;
            iotft:hasRootCause ?rootCause .
 }
 ```
@@ -253,10 +253,10 @@ from rdflib import Graph, Namespace, URIRef, Literal
 
 # 创建图并加载本体
 g = Graph()
-g.parse("iot-fault-ticket-ontology.ttl", format="turtle")
+g.parse("iot-Complaint-ticket-ontology.ttl", format="turtle")
 
 # 定义命名空间
-IOTFT = Namespace("http://www.asiainfo.com/ontology/iot-fault-ticket#")
+IOTFT = Namespace("http://www.asiainfo.com/ontology/iot-Complaint-ticket#")
 
 # 创建新的工单实例
 ticket = URIRef("http://example.org/ticket/12345")
@@ -265,14 +265,14 @@ g.add((ticket, IOTFT.hasId, Literal("TK-20250306-001")))
 g.add((ticket, IOTFT.hasStatus, IOTFT.Open))
 
 # 保存结果
-g.serialize("my-fault-tickets.ttl", format="turtle")
+g.serialize("my-Complaint-tickets.ttl", format="turtle")
 ```
 
 ## 7. 社区与贡献
 
 ### 7.1 获取帮助
 
-- **GitHub仓库**：[https://github.com/asiainfo/iot-fault-ticket-ontology](https://github.com/asiainfo/iot-fault-ticket-ontology)
+- **GitHub仓库**：[https://github.com/asiainfo/iot-Complaint-ticket-ontology](https://github.com/asiainfo/iot-Complaint-ticket-ontology)
 - **问题反馈**：通过GitHub Issues提交
 - **邮件列表**：iot-ontology@example.com
 
@@ -293,4 +293,4 @@ g.serialize("my-fault-tickets.ttl", format="turtle")
 
 ---
 
-**下一步**：阅读[核心词汇与模型规范](./IOT-Fault-Ticket-Ontology-Vocabulary-CN.md)了解详细的本体定义。
+**下一步**：阅读[核心词汇与模型规范](./IOT-Complaint-Ticket-Ontology-Vocabulary-CN.md)了解详细的本体定义。

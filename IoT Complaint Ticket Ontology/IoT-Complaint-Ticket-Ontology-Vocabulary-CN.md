@@ -2,7 +2,7 @@
 
 版本：1.0.0  
 发布日期：2025-01-08  
-命名空间：`http://www.asiainfo.com/ontology/iot-fault-ticket#`  
+命名空间：`http://www.asiainfo.com/ontology/iot-Complaint-ticket#`  
 前缀：`iotft:`
 
 ## 目录
@@ -20,8 +20,8 @@
 ### 1.1 本体命名空间
 
 ```turtle
-@prefix iotft: <http://www.asiainfo.com/ontology/iot-fault-ticket#> .
-@base <http://www.asiainfo.com/ontology/iot-fault-ticket#> .
+@prefix iotft: <http://www.asiainfo.com/ontology/iot-Complaint-ticket#> .
+@base <http://www.asiainfo.com/ontology/iot-Complaint-ticket#> .
 ```
 
 ### 1.2 外部依赖命名空间
@@ -40,11 +40,11 @@
 ### 1.3 版本信息
 
 ```turtle
-<http://www.asiainfo.com/ontology/iot-fault-ticket#>
+<http://www.asiainfo.com/ontology/iot-Complaint-ticket#>
     a owl:Ontology ;
     owl:versionInfo "1.0.0" ;
     dcterms:title "物联网故障工单本体"@zh-CN ;
-    dcterms:title "IoT Fault Ticket Ontology"@en ;
+    dcterms:title "IoT Complaint Ticket Ontology"@en ;
     dcterms:description "用于描述物联网运营商故障工单管理的本体模型"@zh-CN ;
     dcterms:creator "亚信科技 AI 研究院" ;
     dcterms:created "2025-01-08"^^xsd:date ;
@@ -63,10 +63,10 @@ owl:Thing
 ├── iotft:Device                 # 设备
 ├── iotft:SIMCard                # 物联网卡
 ├── iotft:Network                # 网络
-├── iotft:Fault                  # 故障（抽象基类）
-│   ├── iotft:NetworkFault       # 网络故障
-│   ├── iotft:DeviceFault        # 设备故障
-│   ├── iotft:ConfigurationFault # 配置故障
+├── iotft:Complaint                  # 故障（抽象基类）
+│   ├── iotft:NetworkComplaint       # 网络故障
+│   ├── iotft:DeviceComplaint        # 设备故障
+│   ├── iotft:ConfigurationComplaint # 配置故障
 │   ├── iotft:LocationDrift      # 位置漂移
 │   └── iotft:FakeBaseStation    # 伪基站
 ├── iotft:Symptom                # 症状
@@ -100,7 +100,7 @@ owl:Thing
 ```turtle
 iotft:Ticket a owl:Class ;
     rdfs:label "故障工单"@zh-CN ;
-    rdfs:label "Fault Ticket"@en ;
+    rdfs:label "Complaint Ticket"@en ;
     rdfs:comment "描述一个完整的故障处理工单，包括从创建到解决的全生命周期"@zh-CN ;
     rdfs:subClassOf [
         a owl:Restriction ;
@@ -122,22 +122,22 @@ iotft:Ticket a owl:Class ;
 - `reportedBy`: 必填，报告客户
 - `describes`: 必填，描述的故障
 
-### 3.2 故障类（Fault）
+### 3.2 故障类（Complaint）
 
 ```turtle
-iotft:Fault a owl:Class ;
+iotft:Complaint a owl:Class ;
     rdfs:label "故障"@zh-CN ;
-    rdfs:label "Fault"@en ;
+    rdfs:label "Complaint"@en ;
     rdfs:comment "故障的抽象基类，所有具体故障类型都继承自此类"@zh-CN ;
     owl:disjointWith iotft:Ticket, iotft:Customer, iotft:Device .
 
-iotft:NetworkFault a owl:Class ;
-    rdfs:subClassOf iotft:Fault ;
+iotft:NetworkComplaint a owl:Class ;
+    rdfs:subClassOf iotft:Complaint ;
     rdfs:label "网络故障"@zh-CN ;
     rdfs:comment "与网络连接、信号覆盖相关的故障"@zh-CN .
 
 iotft:LocationDrift a owl:Class ;
-    rdfs:subClassOf iotft:Fault ;
+    rdfs:subClassOf iotft:Complaint ;
     rdfs:label "位置漂移"@zh-CN ;
     rdfs:comment "设备位置与实际位置不符的特殊故障类型"@zh-CN ;
     rdfs:subClassOf [
@@ -193,16 +193,16 @@ iotft:SIMCard a owl:Class ;
 
 | 属性名 | 域（Domain） | 值域（Range） | 说明 | 特性 |
 |--------|-------------|--------------|------|------|
-| iotft:describes | iotft:Ticket | iotft:Fault | 工单描述的故障 | 功能属性 |
+| iotft:describes | iotft:Ticket | iotft:Complaint | 工单描述的故障 | 功能属性 |
 | iotft:reportedBy | iotft:Ticket | iotft:Customer | 报告工单的客户 | 功能属性 |
 | iotft:assignedTo | iotft:Ticket | iotft:Team | 分配给的团队 | - |
-| iotft:affects | iotft:Fault | iotft:Device | 故障影响的设备 | - |
+| iotft:affects | iotft:Complaint | iotft:Device | 故障影响的设备 | - |
 | iotft:uses | iotft:Device | iotft:SIMCard | 设备使用的SIM卡 | 功能属性 |
 | iotft:boundTo | iotft:SIMCard | iotft:Device | SIM卡绑定的设备 | 反向功能属性 |
-| iotft:hasRootCause | iotft:Fault | iotft:RootCause | 故障的根因 | - |
-| iotft:resolvedBy | iotft:Fault | iotft:Resolution | 故障的解决方案 | - |
-| iotft:occurredAt | iotft:Fault | iotft:Location | 故障发生位置 | - |
-| iotft:hasSymptom | iotft:Fault | iotft:Symptom | 故障的症状 | - |
+| iotft:hasRootCause | iotft:Complaint | iotft:RootCause | 故障的根因 | - |
+| iotft:resolvedBy | iotft:Complaint | iotft:Resolution | 故障的解决方案 | - |
+| iotft:occurredAt | iotft:Complaint | iotft:Location | 故障发生位置 | - |
+| iotft:hasSymptom | iotft:Complaint | iotft:Symptom | 故障的症状 | - |
 | iotft:subscribesTo | iotft:Customer | iotft:Service | 客户订阅的服务 | - |
 | iotft:hasPolicy | iotft:Service | iotft:Policy | 服务的策略 | - |
 | iotft:hasSLA | iotft:Service | iotft:SLA | 服务的SLA | 功能属性 |
@@ -354,17 +354,17 @@ iotft:CardStatus a owl:Class ;
 
 ```turtle
 # 故障类型
-iotft:FaultType a owl:Class ;
+iotft:ComplaintType a owl:Class ;
     rdfs:subClassOf skos:Concept ;
     owl:oneOf (
-        iotft:NetworkFaultType        # 网络故障
-        iotft:DeviceFaultType         # 设备故障
-        iotft:ConfigurationFaultType  # 配置故障
-        iotft:BulkFaultType           # 批量故障
+        iotft:NetworkComplaintType        # 网络故障
+        iotft:DeviceComplaintType         # 设备故障
+        iotft:ConfigurationComplaintType  # 配置故障
+        iotft:BulkComplaintType           # 批量故障
     ) .
 
 # 网络故障子类型
-iotft:NetworkFaultSubtype a owl:Class ;
+iotft:NetworkComplaintSubtype a owl:Class ;
     rdfs:subClassOf skos:Concept ;
     owl:oneOf (
         iotft:WirelessNetworkIssue  # 无线网络问题
@@ -415,12 +415,12 @@ iotft:ResolutionType a owl:Class ;
 ```mermaid
 graph LR
     Customer[客户<br/>Customer] -->|报告<br/>reportedBy| Ticket[工单<br/>Ticket]
-    Ticket -->|描述<br/>describes| Fault[故障<br/>Fault]
+    Ticket -->|描述<br/>describes| Complaint[故障<br/>Complaint]
     Ticket -->|分配<br/>assignedTo| Team[团队<br/>Team]
-    Fault -->|影响<br/>affects| Device[设备<br/>Device]
-    Fault -->|症状<br/>hasSymptom| Symptom[症状<br/>Symptom]
-    Fault -->|根因<br/>hasRootCause| RootCause[根因<br/>RootCause]
-    Fault -->|解决<br/>resolvedBy| Resolution[方案<br/>Resolution]
+    Complaint -->|影响<br/>affects| Device[设备<br/>Device]
+    Complaint -->|症状<br/>hasSymptom| Symptom[症状<br/>Symptom]
+    Complaint -->|根因<br/>hasRootCause| RootCause[根因<br/>RootCause]
+    Complaint -->|解决<br/>resolvedBy| Resolution[方案<br/>Resolution]
     Device -->|使用<br/>uses| SIMCard[物联网卡<br/>SIMCard]
     Device -->|位于<br/>locatedAt| Location[位置<br/>Location]
     SIMCard -->|配置<br/>configuredWith| NetworkConfig[网络配置<br/>NetworkConfig]
@@ -430,22 +430,22 @@ graph LR
 
 ```mermaid
 graph TB
-    Fault[故障 Fault] --> NetworkFault[网络故障<br/>NetworkFault]
-    Fault --> DeviceFault[设备故障<br/>DeviceFault]
-    Fault --> ConfigFault[配置故障<br/>ConfigurationFault]
-    Fault --> LocationDrift[位置漂移<br/>LocationDrift]
-    Fault --> FakeBS[伪基站<br/>FakeBaseStation]
+    Complaint[故障 Complaint] --> NetworkComplaint[网络故障<br/>NetworkComplaint]
+    Complaint --> DeviceComplaint[设备故障<br/>DeviceComplaint]
+    Complaint --> ConfigComplaint[配置故障<br/>ConfigurationComplaint]
+    Complaint --> LocationDrift[位置漂移<br/>LocationDrift]
+    Complaint --> FakeBS[伪基站<br/>FakeBaseStation]
     
-    NetworkFault --> WirelessIssue[无线网络问题]
-    NetworkFault --> CoreIssue[核心网问题]
-    NetworkFault --> CoverageIssue[覆盖问题]
-    NetworkFault --> 2GSunset[2G退网]
+    NetworkComplaint --> WirelessIssue[无线网络问题]
+    NetworkComplaint --> CoreIssue[核心网问题]
+    NetworkComplaint --> CoverageIssue[覆盖问题]
+    NetworkComplaint --> 2GSunset[2G退网]
     
-    DeviceFault --> HardwareFail[硬件故障]
-    DeviceFault --> SoftwareIssue[软件问题]
+    DeviceComplaint --> HardwareFail[硬件故障]
+    DeviceComplaint --> SoftwareIssue[软件问题]
     
-    ConfigFault --> APNError[APN配置错误]
-    ConfigFault --> PolicyConflict[策略冲突]
+    ConfigComplaint --> APNError[APN配置错误]
+    ConfigComplaint --> PolicyConflict[策略冲突]
 ```
 
 ## 7. 使用示例
@@ -453,7 +453,7 @@ graph TB
 ### 7.1 创建完整的故障工单实例
 
 ```turtle
-@prefix iotft: <http://www.asiainfo.com/ontology/iot-fault-ticket#> .
+@prefix iotft: <http://www.asiainfo.com/ontology/iot-Complaint-ticket#> .
 @prefix ex: <http://example.org/instance/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
@@ -519,8 +519,8 @@ ex:sim_001 a iotft:SIMCard ;
     ] .
 
 # 故障实例
-ex:fault_frequent_offline a iotft:NetworkFault ;
-    iotft:faultType iotft:NetworkFaultType ;
+ex:Complaint_frequent_offline a iotft:NetworkComplaint ;
+    iotft:ComplaintType iotft:NetworkComplaintType ;
     iotft:hasSubtype iotft:CoverageIssue ;
     iotft:hasSymptom [
         a iotft:Symptom ;
@@ -547,7 +547,7 @@ ex:ticket_20250306_001 a iotft:Ticket ;
     iotft:createdAt "2025-03-06T10:57:21"^^xsd:dateTime ;
     iotft:updatedAt "2025-03-06T11:30:00"^^xsd:dateTime ;
     iotft:reportedBy ex:customer_youyou ;
-    iotft:describes ex:fault_frequent_offline ;
+    iotft:describes ex:Complaint_frequent_offline ;
     iotft:assignedTo [
         a iotft:Team ;
         iotft:teamName "无线优化团队" ;
@@ -573,7 +573,7 @@ ex:resolution_signal_enhancement a iotft:Resolution ;
     iotft:notes "建议在地下车库安装2个室内天线，覆盖充电桩区域" .
 
 # 建立解决关系
-ex:fault_frequent_offline iotft:resolvedBy ex:resolution_signal_enhancement .
+ex:Complaint_frequent_offline iotft:resolvedBy ex:resolution_signal_enhancement .
 ```
 
 ### 7.2 SPARQL查询示例
@@ -581,16 +581,16 @@ ex:fault_frequent_offline iotft:resolvedBy ex:resolution_signal_enhancement .
 #### 查询所有高优先级的网络故障
 
 ```sparql
-PREFIX iotft: <http://www.asiainfo.com/ontology/iot-fault-ticket#>
+PREFIX iotft: <http://www.asiainfo.com/ontology/iot-Complaint-ticket#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT ?ticket ?fault ?customer ?rootCause
+SELECT ?ticket ?Complaint ?customer ?rootCause
 WHERE {
     ?ticket a iotft:Ticket ;
             iotft:hasPriority iotft:High ;
-            iotft:describes ?fault ;
+            iotft:describes ?Complaint ;
             iotft:reportedBy ?customer .
-    ?fault a iotft:NetworkFault ;
+    ?Complaint a iotft:NetworkComplaint ;
            iotft:hasRootCause ?rootCause .
     ?rootCause iotft:causeType ?causeType ;
                iotft:confidence ?confidence .
@@ -602,26 +602,26 @@ ORDER BY DESC(?confidence)
 #### 统计各类设备的故障数量
 
 ```sparql
-PREFIX iotft: <http://www.asiainfo.com/ontology/iot-fault-ticket#>
+PREFIX iotft: <http://www.asiainfo.com/ontology/iot-Complaint-ticket#>
 
-SELECT ?deviceType (COUNT(?fault) AS ?faultCount)
+SELECT ?deviceType (COUNT(?Complaint) AS ?ComplaintCount)
 WHERE {
-    ?fault a iotft:Fault ;
+    ?Complaint a iotft:Complaint ;
            iotft:affects ?device .
     ?device iotft:deviceType ?deviceType .
 }
 GROUP BY ?deviceType
-ORDER BY DESC(?faultCount)
+ORDER BY DESC(?ComplaintCount)
 ```
 
 #### 查找地下环境的所有故障
 
 ```sparql
-PREFIX iotft: <http://www.asiainfo.com/ontology/iot-fault-ticket#>
+PREFIX iotft: <http://www.asiainfo.com/ontology/iot-Complaint-ticket#>
 
-SELECT ?fault ?location ?symptom
+SELECT ?Complaint ?location ?symptom
 WHERE {
-    ?fault a iotft:Fault ;
+    ?Complaint a iotft:Complaint ;
            iotft:occurredAt ?location ;
            iotft:hasSymptom ?symptom .
     ?location iotft:locationType iotft:Underground .
@@ -632,9 +632,9 @@ WHERE {
 
 ```turtle
 # 规则1：如果故障影响超过100个设备，自动设置为紧急优先级
-[Rule_MassiveFault:
-    (?ticket iotft:describes ?fault)
-    (?fault iotft:affects ?device)
+[Rule_MassiveComplaint:
+    (?ticket iotft:describes ?Complaint)
+    (?Complaint iotft:affects ?device)
     countDistinct(?device, ?count)
     greaterThan(?count, 100)
     ->
@@ -643,11 +643,11 @@ WHERE {
 
 # 规则2：地下环境的网络故障，推断根因为信号覆盖问题
 [Rule_UndergroundCoverage:
-    (?fault a iotft:NetworkFault)
-    (?fault iotft:occurredAt ?location)
+    (?Complaint a iotft:NetworkComplaint)
+    (?Complaint iotft:occurredAt ?location)
     (?location iotft:locationType iotft:Underground)
     ->
-    (?fault iotft:hasRootCause [
+    (?Complaint iotft:hasRootCause [
         iotft:causeType iotft:SignalCoverage ;
         iotft:confidence 0.8
     ])
@@ -656,11 +656,11 @@ WHERE {
 # 规则3：2G设备在2025年后的故障，关联到2G退网
 [Rule_2GSunset:
     (?device iotft:hasCapability iotft:2GOnly)
-    (?fault iotft:affects ?device)
-    (?fault iotft:detectedAt ?date)
+    (?Complaint iotft:affects ?device)
+    (?Complaint iotft:detectedAt ?date)
     greaterThan(?date, "2025-01-01"^^xsd:date)
     ->
-    (?fault iotft:hasSubtype iotft:2GNetworkSunset)
+    (?Complaint iotft:hasSubtype iotft:2GNetworkSunset)
 ]
 ```
 
@@ -670,7 +670,7 @@ WHERE {
 
 ```shacl
 @prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix iotft: <http://www.asiainfo.com/ontology/iot-fault-ticket#> .
+@prefix iotft: <http://www.asiainfo.com/ontology/iot-Complaint-ticket#> .
 
 iotft:TicketShape a sh:NodeShape ;
     sh:targetClass iotft:Ticket ;
@@ -747,4 +747,4 @@ iotft:RootCauseShape a sh:NodeShape ;
 
 ---
 
-**下一步**：下载[本体定义文件](./iot-fault-ticket-ontology.ttl)开始使用。
+**下一步**：下载[本体定义文件](./iot-Complaint-ticket-ontology.ttl)开始使用。

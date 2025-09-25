@@ -1,21 +1,21 @@
-# IoT Fault Ticket Ontology
+# IoT Complaint Ticket Ontology
 
 ## Executive Summary
 
-This ontology defines a comprehensive data model for IoT fault ticket management systems, covering the complete lifecycle from fault detection to resolution. The ontology is structured into three main sections:
+This ontology defines a comprehensive data model for IoT Complaint ticket management systems, covering the complete lifecycle from Complaint detection to resolution. The ontology is structured into three main sections:
 
 ### Overview Statistics
 - **Total Classes**: 30 composite types
 - **Total Enumerations**: 42 enumeration types
 - **Total Enum Values**: 183 distinct values
-- **Main Categories**: 4 (Core Business, Device & Network, Fault & Diagnosis, Data Analysis)
+- **Main Categories**: 4 (Core Business, Device & Network, Complaint & Diagnosis, Data Analysis)
 
 ---
 
 ## Ontology Structure
 
 ```
-IoT Fault Ticket Ontology
+IoT Complaint Ticket Ontology
 │
 ├─ Core Business Objects
 │   ├─ Ticket
@@ -26,7 +26,7 @@ IoT Fault Ticket Ontology
 │   │   ├─ updated_at → DateTime
 │   │   ├─ assigned_to → Team [Class]
 │   │   ├─ reported_by → Customer
-│   │   ├─ describes → Fault
+│   │   ├─ describes → Complaint
 │   │   ├─ affects → Service
 │   │   └─ requires → TestCoordination [Class]
 │   │
@@ -51,7 +51,7 @@ IoT Fault Ticket Ontology
 │   │   ├─ has_capability → NetworkCapability [Enum]
 │   │   ├─ uses → SIMCard
 │   │   ├─ located_at → Location [Class]
-│   │   ├─ experiences → Fault[]
+│   │   ├─ experiences → Complaint[]
 │   │   └─ consumes → DataVolume [Class]
 │   │
 │   ├─ SIMCard
@@ -76,12 +76,12 @@ IoT Fault Ticket Ontology
 │       ├─ has_coverage → Coverage [Class]
 │       └─ has_performance → Performance [Class]
 │
-├─ Fault and Diagnosis Objects
-│   ├─ Fault Hierarchy
-│   │   ├─ Fault (base class)
+├─ Complaint and Diagnosis Objects
+│   ├─ Complaint Hierarchy
+│   │   ├─ Complaint (base class)
 │   │   │   ├─ has_id → String
-│   │   │   ├─ has_type → FaultType [Enum]
-│   │   │   ├─ has_subtype → NetworkFaultSubtype/DeviceFaultSubtype/ConfigurationFaultSubtype/BulkFaultSubtype [Enum]
+│   │   │   ├─ has_type → ComplaintType [Enum]
+│   │   │   ├─ has_subtype → NetworkComplaintSubtype/DeviceComplaintSubtype/ConfigurationComplaintSubtype/BulkComplaintSubtype [Enum]
 │   │   │   ├─ has_symptom → Symptom [Class][]
 │   │   │   ├─ detected_at → DateTime
 │   │   │   ├─ occurred_at → Location [Class]
@@ -89,9 +89,9 @@ IoT Fault Ticket Ontology
 │   │   │   ├─ has_root_cause → RootCause [Class]
 │   │   │   └─ resolved_by → Resolution [Class]
 │   │   │
-│   │   └─ Specialized Faults (extends Fault)
+│   │   └─ Specialized Complaints (extends Complaint)
 │   │       ├─ LocationDrift
-│   │       │   ├─ inherits → Fault properties
+│   │       │   ├─ inherits → Complaint properties
 │   │       │   ├─ actual_location → Location [Class]
 │   │       │   ├─ reported_location → Location [Class]
 │   │       │   ├─ drift_distance → Float (km)
@@ -100,20 +100,20 @@ IoT Fault Ticket Ontology
 │   │       │   └─ frequency → DriftFrequency [Enum]
 │   │       │
 │   │       └─ FakeBaseStation
-│   │           ├─ inherits → Fault properties
+│   │           ├─ inherits → Complaint properties
 │   │           ├─ detection_method → DetectionMethod [Class]
 │   │           ├─ affected_network → NetworkType [Enum]
 │   │           ├─ mitigation → MitigationStrategy [Class]
 │   │           └─ reported_location → Location [Class]
 │   │
-│   └─ Fault Analysis
-│       └─ BulkFaultPattern
+│   └─ Complaint Analysis
+│       └─ BulkComplaintPattern
 │           ├─ pattern_id → String
 │           ├─ affected_scale → Scale [Enum]
 │           ├─ trigger_time → DateTime
 │           ├─ trigger_cause → TriggerCause [Enum]
 │           ├─ geographic_pattern → GeographicPattern [Enum]
-│           └─ related_faults → Fault[]
+│           └─ related_Complaints → Complaint[]
 │
 └─ Data Analysis Objects
     ├─ SignalQuality
@@ -387,12 +387,12 @@ CardType [Enum] = [USIM|eSIM|NanoSIM]
 CardStatus [Enum] = [Active|Suspended|Inactive|Testing|BulkOffline|Terminated]
 BindingType [Enum] = [Embedded|Removable|DeviceBound]
 
-# Fault Related
-FaultType [Enum] = [NetworkFault|DeviceFault|ConfigurationFault|BulkFault]
-NetworkFaultSubtype [Enum] = [WirelessNetworkIssue|CoreNetworkIssue|CoverageIssue|2GNetworkSunset]
-DeviceFaultSubtype [Enum] = [HardwareFailure|SoftwareIssue]
-ConfigurationFaultSubtype [Enum] = [APNMisconfiguration|PolicyConflict|DPIWhitelistIssue]
-BulkFaultSubtype [Enum] = [MassiveOffline|GroupMalfunction]
+# Complaint Related
+ComplaintType [Enum] = [NetworkComplaint|DeviceComplaint|ConfigurationComplaint|BulkComplaint]
+NetworkComplaintSubtype [Enum] = [WirelessNetworkIssue|CoreNetworkIssue|CoverageIssue|2GNetworkSunset]
+DeviceComplaintSubtype [Enum] = [HardwareFailure|SoftwareIssue]
+ConfigurationComplaintSubtype [Enum] = [APNMisconfiguration|PolicyConflict|DPIWhitelistIssue]
+BulkComplaintSubtype [Enum] = [MassiveOffline|GroupMalfunction]
 SymptomType [Enum] = [NoConnection|SlowSpeed|HighLatency|WeakSignal|BulkOffline]
 SeverityLevel [Enum] = [Critical|High|Medium|Low|Info]
 CauseType [Enum] = [SignalCoverage|NetworkCongestion|ConfigError|DeviceFailure|PolicyRestriction|ExternalInterference]
