@@ -26,7 +26,7 @@
 ## 版本信息
 
 - **项目状态**：开发中
-- **当前版本**：v1.0（物联网投诉工单本体）
+- **当前版本**：v0.1
 - **基础命名空间**：`http://asiainfo.com/an-ontology#`
 
 ## 目录结构
@@ -38,15 +38,13 @@
 ├── iot-complaint-tickets/            # 物联网投诉工单本体
 │   ├── iot-tickets.ttl              # 主本体文件
 │   ├── examples/                     # 示例实例
-│   └── docs/                         # 相关文档
+│   └── docs/
+│   └── readme.md                      # 说明文件
 ├── core-network-fault/               # 核心网故障本体（开发中）
 │   └── docs/                         # 设计文档
 ├── network-resource/                 # 网络资源本体（开发中）
-│   └── docs/                         # 设计文档
-└── docs/                            # 项目通用文档
-    ├── methodology/                  # 本体构建方法论
-    ├── architecture/                 # 架构设计文档
-    └── best-practices/              # 最佳实践指南
+   └── docs/                         # 设计文档
+
 ```
 
 ## 快速开始
@@ -57,12 +55,12 @@
 
    ```bash
    git clone [repository-url]
-   cd autonomous-network-ontology/iot-complaint-tickets/
+   cd AN-Ontology/IoT Complaint Ticket Ontology/
    ```
 
 2. **加载本体**
 
-   - 使用支持OWL的工具（如Protégé）打开 `iot-tickets.ttl`
+   - 使用支持OWL的工具（如Protégé）打开 `IoT-Complaint-Ticket-Ontology.ttl`
    - 或在代码中使用相应的语义Web库加载
 
 3. **查看示例**
