@@ -1,7 +1,7 @@
 # 物联网故障工单本体：概览与入门
 
 版本：1.0.0  
-发布日期：2025-01-08  
+发布日期：2025-09-30  
 作者：亚信科技 AI 研究院  
 命名空间：`http://www.asiainfo.com/ontology/iot-Complaint-ticket#`  
 前缀：`iotft:`
