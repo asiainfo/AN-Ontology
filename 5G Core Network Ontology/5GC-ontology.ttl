@@ -1,0 +1,1113 @@
+# 5G核心网本体 (5GC Ontology)
+# 版本: 1.0.0
+# 日期: 2025-10-11
+# 作者: 亚信科技 AI 研究院
+# 许可: Apache License 2.0
+
+@prefix : <http://www.asiainfo.com/ontology/5gc#> .
+@prefix 5gc: <http://www.asiainfo.com/ontology/5gc#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://www.asiainfo.com/ontology/5gc#> .
+
+<http://www.asiainfo.com/ontology/5gc#> rdf:type owl:Ontology ;
+    owl:versionInfo "1.0.0" ;
+    dcterms:title "5G核心网本体"@zh-CN ,
+                   "5GC Ontology"@en ;
+    dcterms:description "用于描述5G核心网架构和网元管理的本体模型，涵盖AMF、SMF、UPF、UDM等核心网元"@zh-CN ;
+    dcterms:creator "亚信科技 AI 研究院" ;
+    dcterms:created "2025-10-11"^^xsd:date ;
+    dcterms:license <http://www.apache.org/licenses/LICENSE-2.0> ;
+    rdfs:comment "本体基于3GPP 5G核心网标准设计，提供标准化的概念模型和语义描述"@zh-CN .
+
+#################################################################
+#    对象属性 (Object Properties)
+#################################################################
+
+### http://www.asiainfo.com/ontology/5gc#amfBasicInfo
+5gc:amfBasicInfo rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:AMF ;
+    rdfs:range 5gc:AMFBasicInfo ;
+    rdfs:comment "基础信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#amfServiceInfo
+5gc:amfServiceInfo rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:AMF ;
+    rdfs:range 5gc:ServiceConfig ;
+    rdfs:comment "业务信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#amfServiceResource
+5gc:amfServiceResource rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:AMF ;
+    rdfs:range 5gc:ServiceResource ;
+    rdfs:comment "业务资源信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#amfSpComponent
+5gc:amfSpComponent rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:AMF ;
+    rdfs:range 5gc:ServiceComponent ;
+    rdfs:comment "网元的业务进程：负责处理用户接入、移动性和会话类业务，维护用户数据。"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#amfDeployedUsingMethod
+5gc:amfDeployedUsingMethod rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:AMF ;
+    rdfs:range 5gc:DeploymentMethod ;
+    rdfs:comment "部署方式"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#n2Interface
+5gc:n2Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:AMF ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "N2接口，AMF-GNB"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#n8Interface
+5gc:n8Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:AMF ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "N8接口类，用于AMF-UDM之间的接口"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#n11Interface
+5gc:n11Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:AMF ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "N11接口类，用于AMF-SMF之间的接口"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#n12Interface
+5gc:n12Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:AMF ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "N12接口类，用于UDM-AUSF之间的接口"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#n14Interface
+5gc:n14Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:AMF ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "N14接口类，用于AMF-其他AMF之间的接口"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#n15Interface
+5gc:n15Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:AMF ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "N15接口类，用于AMF-PCF之间的接口"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#n22Interface
+5gc:n22Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:AMF ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "N22接口类，AMF-NSSF"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#amfLicense
+5gc:amfLicense rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:AMF ;
+    rdfs:range 5gc:AMFLicense ;
+    rdfs:comment "license"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#amfCapability
+5gc:amfCapability rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:AMF ;
+    rdfs:range 5gc:AMFCapabilityExposure ;
+    rdfs:comment "网元开放能力"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#smfBasicInfo
+5gc:smfBasicInfo rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:SMF ;
+    rdfs:range 5gc:SMFBasicInfo ;
+    rdfs:comment "基础信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#smfServiceInfo
+5gc:smfServiceInfo rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:SMF ;
+    rdfs:range 5gc:ServiceConfig ;
+    rdfs:comment "业务信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#smfServiceResource
+5gc:smfServiceResource rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:SMF ;
+    rdfs:range 5gc:ServiceResource ;
+    rdfs:comment "业务资源信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#smfSpComponent
+5gc:smfSpComponent rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:SMF ;
+    rdfs:range 5gc:ServiceComponent ;
+    rdfs:comment "网元的SP进程：核心业务处理平面，承载 SMF 的全部对外服务能力与内部业务逻辑处理"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#smfDeployedUsingMethod
+5gc:smfDeployedUsingMethod rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:SMF ;
+    rdfs:range 5gc:DeploymentMethod ;
+    rdfs:comment "部署方式"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#n4Interface
+5gc:n4Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:SMF ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "N4接口类，用于SMF与UPF之间的N4接口。"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#n10Interface
+5gc:n10Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:SMF ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "N10接口类，用于SMF与UDM之间的N10接口。"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#n11Interface
+5gc:n11Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:SMF ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "N11接口类，用于AMF-SMF之间的接口"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#n7Interface
+5gc:n7Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:SMF ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "N7接口类，用于SMF与PCF之间的N10接口。"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#smfLicense
+5gc:smfLicense rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:SMF ;
+    rdfs:range 5gc:SMFLicense ;
+    rdfs:comment "license"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#smfCapability
+5gc:smfCapability rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:SMF ;
+    rdfs:range 5gc:SMFCapabilityExposure ;
+    rdfs:comment "网元开放能力"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#upfBasicInfo
+5gc:upfBasicInfo rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UPF ;
+    rdfs:range 5gc:UPFBasicInfo ;
+    rdfs:comment "基础信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#upfServiceInfo
+5gc:upfServiceInfo rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UPF ;
+    rdfs:range 5gc:ServiceConfig ;
+    rdfs:comment "业务信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#upfServiceResource
+5gc:upfServiceResource rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UPF ;
+    rdfs:range 5gc:ServiceResource ;
+    rdfs:comment "业务资源信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#upfSpComponent
+5gc:upfSpComponent rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UPF ;
+    rdfs:range 5gc:ServiceComponent ;
+    rdfs:comment "网元的SP进程：核心业务处理平面，负责处理用户会话信息，维护用户数据，实现用户报文转发。"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#upfDeployedUsingMethod
+5gc:upfDeployedUsingMethod rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UPF ;
+    rdfs:range 5gc:DeploymentMethod ;
+    rdfs:comment "部署方式"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#n3Interface
+5gc:n3Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UPF ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "N3接口"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#n4Interface
+5gc:n4Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UPF ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "N4接口类，用于SMF与UPF之间的N4接口。"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#n6Interface
+5gc:n6Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UPF ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "N6接口"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#n9Interface
+5gc:n9Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UPF ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "N9接口"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#s1uInterface
+5gc:s1uInterface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UPF ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "S1-U接口"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#sgwus5s8Interface
+5gc:sgwus5s8Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UPF ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "SGW-U S5/S8接口"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#pgwus5s8Interface
+5gc:pgwus5s8Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UPF ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "PGW-U S5/S8接口"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#upfLicense
+5gc:upfLicense rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UPF ;
+    rdfs:range 5gc:UPFLicense ;
+    rdfs:comment "license"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#upfCapability
+5gc:upfCapability rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UPF ;
+    rdfs:range 5gc:UPFCapabilityExposure ;
+    rdfs:comment "网元开放能力"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#udmBasicInfo
+5gc:udmBasicInfo rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UDM ;
+    rdfs:range 5gc:UDMBasicInfo ;
+    rdfs:comment "基础信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#udmServiceInfo
+5gc:udmServiceInfo rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UDM ;
+    rdfs:range 5gc:ServiceConfig ;
+    rdfs:comment "业务信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#udmServiceResource
+5gc:udmServiceResource rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UDM ;
+    rdfs:range 5gc:ServiceResource ;
+    rdfs:comment "业务资源信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#udmSpComponent
+5gc:udmSpComponent rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UDM ;
+    rdfs:range 5gc:ServiceComponent ;
+    rdfs:comment "网元的SP进程：负责SBI消息处理的业务，以及上下文管理的业务。"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#udmDeployedUsingMethod
+5gc:udmDeployedUsingMethod rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UDM ;
+    rdfs:range 5gc:DeploymentMethod ;
+    rdfs:comment "部署方式"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#n8Interface
+5gc:n8Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UDM ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "N8接口类，用于AMF-UDM之间的接口"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#n10Interface
+5gc:n10Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UDM ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "N10接口，UDM-SMF"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#n12Interface
+5gc:n12Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UDM ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "N12接口类，用于UDM-AUSF之间的接口"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#n21Interface
+5gc:n21Interface rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UDM ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "N21接口类，用于UDM-SMSF之间的接口"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#udmLicense
+5gc:udmLicense rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UDM ;
+    rdfs:range 5gc:UDMLicense ;
+    rdfs:comment "license"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#udmCapability
+5gc:udmCapability rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UDM ;
+    rdfs:range 5gc:UDMCapabilityExposure ;
+    rdfs:comment "网元开放能力"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#ne
+5gc:ne rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:Interface ;
+    rdfs:range 5gc:NetworkFunction ;
+    rdfs:comment "接口本端的网元"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#adjNe
+5gc:adjNe rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:Interface ;
+    rdfs:range 5gc:NetworkFunction ;
+    rdfs:comment "接口对端的网元"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#connectTo
+5gc:connectTo rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:Interface ;
+    rdfs:range 5gc:Interface ;
+    rdfs:comment "接口的对端信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#NECapabilityExposure
+5gc:NECapabilityExposure rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:NECapabilityExposure ;
+    rdfs:range 5gc:Function ;
+    rdfs:comment "查询网元状态操作类"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#QuerySctp
+5gc:QuerySctp rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:AMFCapabilityExposure ;
+    rdfs:range 5gc:Function ;
+    rdfs:comment "查询SCTP偶联信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#QueryRan
+5gc:QueryRan rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:AMFCapabilityExposure ;
+    rdfs:range 5gc:Function ;
+    rdfs:comment "查询基站接入信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#QueryHttp
+5gc:QueryHttp rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:AMFCapabilityExposure ;
+    rdfs:range 5gc:Function ;
+    rdfs:comment "查询HTTP链路信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#QueryAmfUser
+5gc:QueryAmfUser rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:AMFCapabilityExposure ;
+    rdfs:range 5gc:Function ;
+    rdfs:comment "查询用户"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#QueryHttp2LinkStatus
+5gc:QueryHttp2LinkStatus rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:SMFCapabilityExposure ;
+    rdfs:range 5gc:Function ;
+    rdfs:comment "该工具可查询HTTP2链路状态操作类"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#QueryUpfLinkstatus
+5gc:QueryUpfLinkstatus rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:SMFCapabilityExposure ;
+    rdfs:range 5gc:Function ;
+    rdfs:comment "该工具可查询UPF链路状态操作类"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#QueryStat
+5gc:QueryStat rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UPFCapabilityExposure ;
+    rdfs:range 5gc:Function ;
+    rdfs:comment "查询流程统计信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#QueryAssoc
+5gc:QueryAssoc rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UPFCapabilityExposure ;
+    rdfs:range 5gc:Function ;
+    rdfs:comment "查询PFCP偶联信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#QueryAmfReg
+5gc:QueryAmfReg rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UDMCapabilityExposure ;
+    rdfs:range 5gc:Function ;
+    rdfs:comment "查询AMF注册"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#QuerysmfReg
+5gc:QuerysmfReg rdf:type owl:ObjectProperty ;
+    rdfs:domain 5gc:UDMCapabilityExposure ;
+    rdfs:range 5gc:Function ;
+    rdfs:comment "查询SMF注册"@zh-CN .
+
+#################################################################
+#    数据属性 (Data Properties)
+#################################################################
+
+### http://www.asiainfo.com/ontology/5gc#neType
+5gc:neType rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:NetworkFunction ;
+    rdfs:range 5gc:NEType ;
+    rdfs:comment "网元类型"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#neId
+5gc:neId rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:NetworkFunction ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "网元标识"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#neName
+5gc:neName rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:NetworkFunction ;
+    rdfs:range xsd:string ;
+    rdfs:comment "网元名称"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#interfaceType
+5gc:interfaceType rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:Interface ;
+    rdfs:range 5gc:InterfaceType ;
+    rdfs:comment "接口类型"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#ipType
+5gc:ipType rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:Interface ;
+    rdfs:range 5gc:IPType ;
+    rdfs:comment "接口本端IP类型"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#ipAddr
+5gc:ipAddr rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:Interface ;
+    rdfs:range xsd:string ;
+    rdfs:comment "接口本端的IP地址"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#ipMask
+5gc:ipMask rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:Interface ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "接口本端的掩码"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#status
+5gc:status rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:Interface ;
+    rdfs:range 5gc:InterfaceStatus ;
+    rdfs:comment "接口状态，是动态信息"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#totalUsers
+5gc:totalUsers rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:AMFLicense ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "总用户数"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#usersPerUnit
+5gc:usersPerUnit rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:AMFLicense ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "每业务单元用户数"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#maxUnitNum
+5gc:maxUnitNum rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:AMFLicense ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "业务单元最大个数"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#totalSessions
+5gc:totalSessions rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:SMFLicense ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "总会话数容量"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#sessionsPerUnit
+5gc:sessionsPerUnit rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:SMFLicense ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "每业务单元会话数"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#maxUnitNum
+5gc:maxUnitNum rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:SMFLicense ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "业务单元最大个数"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#upfSpSessNum
+5gc:upfSpSessNum rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:UPFLicense ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "每业务单元会话数"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#upfSpBandWidth
+5gc:upfSpBandWidth rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:UPFLicense ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "每业务单元最大带宽(Mbps)"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#upfSpNum
+5gc:upfSpNum rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:UPFLicense ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "业务单元最大个数"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#totalUsers
+5gc:totalUsers rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:UDMLicense ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "总用户数"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#usersPerUnit
+5gc:usersPerUnit rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:UDMLicense ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "每业务单元用户数"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#maxUnitNum
+5gc:maxUnitNum rdf:type owl:DatatypeProperty ;
+    rdfs:domain 5gc:UDMLicense ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "业务单元大个数"@zh-CN .
+
+#################################################################
+#    主类 (Main Classes)
+#################################################################
+
+### http://www.asiainfo.com/ontology/5gc#AMF
+5gc:AMF rdf:type owl:Class ;
+    rdfs:subClassOf 5gc:NetworkFunction ;
+    rdfs:comment "AMF网元类，AMF（Access and Mobility Management Function）是5G核心网（5GC）控制面的核心网元，作为终端（UE）接入网络的关键协调点，它承担着接入控制、移动性管理和信令路由的核心职责。 核心角色与定位： 1.单一信令接入点（Single Entry Point）：UE 的所有非接入层（NAS）信令（如注册、鉴权、位置更新）都直接发送给AMF，简化了UE与核心网的交互。 2.控制面功能解耦：5GC 架构采用"控制与用户面分离（CUPS"和"控制面功能拆分"设计。AMF专注于接入和移动性管理，将会话管理功能委托给SMF，体现了架构的灵活性和可扩展性。"@zh-CN ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:amfBasicInfo ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:amfSpComponent ;
+        owl:minCardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:amfDeployedUsingMethod ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:n2Interface ;
+        owl:minCardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:n8Interface ;
+        owl:minCardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:n11Interface ;
+        owl:minCardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:amfLicense ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:amfCapability ;
+        owl:cardinality "1"
+    ]  .
+
+### http://www.asiainfo.com/ontology/5gc#AMFBasicInfo
+5gc:AMFBasicInfo rdf:type owl:Class ;
+    rdfs:comment "AMF的基本信息类"@zh-CN  .
+
+### http://www.asiainfo.com/ontology/5gc#AMFCapabilityExposure
+5gc:AMFCapabilityExposure rdf:type owl:Class ;
+    rdfs:subClassOf 5gc:NECapabilityExposure ;
+    rdfs:comment "AMF能力开放类，提供AMF相关的能力工具"@zh-CN ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:QuerySctp ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:QueryRan ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:QueryHttp ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:QueryAmfUser ;
+        owl:cardinality "1"
+    ]  .
+
+### http://www.asiainfo.com/ontology/5gc#AMFLicense
+5gc:AMFLicense rdf:type owl:Class ;
+    rdfs:subClassOf 5gc:License ;
+    rdfs:comment "AMF的license类，包括容量License、功能License"@zh-CN ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:totalUsers ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:usersPerUnit ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:maxUnitNum ;
+        owl:cardinality "1"
+    ]  .
+
+### http://www.asiainfo.com/ontology/5gc#CapabilityExposure
+5gc:CapabilityExposure rdf:type owl:Class ;
+    rdfs:comment "能力开放基类"@zh-CN  .
+
+### http://www.asiainfo.com/ontology/5gc#DeploymentMethod
+5gc:DeploymentMethod rdf:type owl:Class ;
+    rdfs:comment "部署方式抽象类"@zh-CN  .
+
+### http://www.asiainfo.com/ontology/5gc#DockerDeployment
+5gc:DockerDeployment rdf:type owl:Class ;
+    rdfs:subClassOf 5gc:DeploymentMethod ;
+    rdfs:comment "部署方式类：通过Docker容器部署"@zh-CN  .
+
+### http://www.asiainfo.com/ontology/5gc#Interface
+5gc:Interface rdf:type owl:Class ;
+    rdfs:comment "接口基类"@zh-CN ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:interfaceType ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:ipType ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:ipAddr ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:ipMask ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:status ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:ne ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:adjNe ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:connectTo ;
+        owl:maxCardinality "1" ;
+        owl:minCardinality "0"
+    ]  .
+
+### http://www.asiainfo.com/ontology/5gc#KubernetesDeployment
+5gc:KubernetesDeployment rdf:type owl:Class ;
+    rdfs:subClassOf 5gc:DeploymentMethod ;
+    rdfs:comment "部署方式类：通过Kubernetes部署"@zh-CN  .
+
+### http://www.asiainfo.com/ontology/5gc#License
+5gc:License rdf:type owl:Class ;
+    rdfs:comment "license基类"@zh-CN  .
+
+### http://www.asiainfo.com/ontology/5gc#NECapabilityExposure
+5gc:NECapabilityExposure rdf:type owl:Class ;
+    rdfs:subClassOf 5gc:CapabilityExposure ;
+    rdfs:comment "网元能力开放基类，提供网元相关的公共能力工具"@zh-CN ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:NECapabilityExposure ;
+        owl:cardinality "1"
+    ]  .
+
+### http://www.asiainfo.com/ontology/5gc#NetworkFunction
+5gc:NetworkFunction rdf:type owl:Class ;
+    rdfs:comment "网元基类"@zh-CN ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:neType ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:neId ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:neName ;
+        owl:maxCardinality "1" ;
+        owl:minCardinality "0"
+    ]  .
+
+### http://www.asiainfo.com/ontology/5gc#SMF
+5gc:SMF rdf:type owl:Class ;
+    rdfs:subClassOf 5gc:NetworkFunction ;
+    rdfs:comment "SMF网元类，SMF（会话管理功能）是5G核心网控制面网元，核心职责是管理用户数据会话的生命周期、连接性和服务质量。其主要作用为： 1. 会话管理：负责建立、修改和释放用户设备（UE）的数据会话（PDU会话）。 2. IP地址分配：为UE分配和管理IP地址。 3. 用户面控制：选择、配置和管理用户面功能（UPF），控制用户面路径（包括UPF间的重选）。 4. 策略执行：执行与用户会话相关的策略（如QoS策略）和计费控制。"@zh-CN ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:smfBasicInfo ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:smfSpComponent ;
+        owl:minCardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:smfDeployedUsingMethod ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:n4Interface ;
+        owl:minCardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:n10Interface ;
+        owl:minCardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:n11Interface ;
+        owl:minCardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:n7Interface ;
+        owl:minCardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:smfLicense ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:smfCapability ;
+        owl:cardinality "1"
+    ]  .
+
+### http://www.asiainfo.com/ontology/5gc#SMFBasicInfo
+5gc:SMFBasicInfo rdf:type owl:Class ;
+    rdfs:comment "SMF的基本信息类"@zh-CN  .
+
+### http://www.asiainfo.com/ontology/5gc#SMFCapabilityExposure
+5gc:SMFCapabilityExposure rdf:type owl:Class ;
+    rdfs:subClassOf 5gc:NECapabilityExposure ;
+    rdfs:comment "SMF能力开放类，提供SMF相关的能力工具"@zh-CN ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:QueryHttp2LinkStatus ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:QueryUpfLinkstatus ;
+        owl:cardinality "1"
+    ]  .
+
+### http://www.asiainfo.com/ontology/5gc#SMFLicense
+5gc:SMFLicense rdf:type owl:Class ;
+    rdfs:subClassOf 5gc:License ;
+    rdfs:comment "SMF的license类，包括容量License、功能License"@zh-CN ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:totalSessions ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:sessionsPerUnit ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:maxUnitNum ;
+        owl:cardinality "1"
+    ]  .
+
+### http://www.asiainfo.com/ontology/5gc#ServiceComponent
+5gc:ServiceComponent rdf:type owl:Class ;
+    rdfs:comment "网元服务进程"@zh-CN  .
+
+### http://www.asiainfo.com/ontology/5gc#ServiceConfig
+5gc:ServiceConfig rdf:type owl:Class ;
+    rdfs:comment "业务信息"@zh-CN  .
+
+### http://www.asiainfo.com/ontology/5gc#ServiceResource
+5gc:ServiceResource rdf:type owl:Class ;
+    rdfs:comment "业务资源类"@zh-CN  .
+
+### http://www.asiainfo.com/ontology/5gc#UDM
+5gc:UDM rdf:type owl:Class ;
+    rdfs:subClassOf 5gc:NetworkFunction ;
+    rdfs:comment "UDM网元类"@zh-CN ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:udmBasicInfo ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:udmSpComponent ;
+        owl:minCardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:udmDeployedUsingMethod ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:n8Interface ;
+        owl:minCardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:n10Interface ;
+        owl:minCardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:n12Interface ;
+        owl:minCardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:n21Interface ;
+        owl:minCardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:udmLicense ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:udmCapability ;
+        owl:cardinality "1"
+    ]  .
+
+### http://www.asiainfo.com/ontology/5gc#UDMBasicInfo
+5gc:UDMBasicInfo rdf:type owl:Class ;
+    rdfs:comment "UDM的基本信息类"@zh-CN  .
+
+### http://www.asiainfo.com/ontology/5gc#UDMCapabilityExposure
+5gc:UDMCapabilityExposure rdf:type owl:Class ;
+    rdfs:subClassOf 5gc:NECapabilityExposure ;
+    rdfs:comment "UDM能力开放类，提供UDM相关的能力工具"@zh-CN ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:QueryAmfReg ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:QuerysmfReg ;
+        owl:cardinality "1"
+    ]  .
+
+### http://www.asiainfo.com/ontology/5gc#UDMLicense
+5gc:UDMLicense rdf:type owl:Class ;
+    rdfs:subClassOf 5gc:License ;
+    rdfs:comment "UDM的license类，包括容量License、功能License"@zh-CN ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:totalUsers ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:usersPerUnit ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:maxUnitNum ;
+        owl:cardinality "1"
+    ]  .
+
+### http://www.asiainfo.com/ontology/5gc#UPF
+5gc:UPF rdf:type owl:Class ;
+    rdfs:subClassOf 5gc:NetworkFunction ;
+    rdfs:comment "UPF网元类，UPF（用户面管理功能）是5G核心网用户面网元，负责处理用户面数据的路由和转发。其主要作用为： 1、数据包路由与转发： 在N3接口（与gNB连接）和N6接 口（与数据网络连接）之间转 发用户数据，支持上行分类器（UL CL）功能，实现业务分 流。 2、QoS处理： 执行数据包标记、速率整形和 QoS流映射，实现5G QoS标识符（5QI）到DSCP标记的映射。 3、计费支持： 生成用户面计费数据记录，支 持流量测量和报告。 4、移动性支持： 支持会话锚点功能，在UE移动 时保持IP地址不变， 与SMF配合完成路径切换。"@zh-CN ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:upfBasicInfo ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:upfSpComponent ;
+        owl:minCardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:upfDeployedUsingMethod ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:n3Interface ;
+        owl:minCardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:n4Interface ;
+        owl:minCardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:n6Interface ;
+        owl:minCardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:upfLicense ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:upfCapability ;
+        owl:cardinality "1"
+    ]  .
+
+### http://www.asiainfo.com/ontology/5gc#UPFBasicInfo
+5gc:UPFBasicInfo rdf:type owl:Class ;
+    rdfs:comment "UPF的基本信息类"@zh-CN  .
+
+### http://www.asiainfo.com/ontology/5gc#UPFCapabilityExposure
+5gc:UPFCapabilityExposure rdf:type owl:Class ;
+    rdfs:subClassOf 5gc:NECapabilityExposure ;
+    rdfs:comment "UPF能力开放类，提供UPF相关的能力工具"@zh-CN ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:QueryStat ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:QueryAssoc ;
+        owl:cardinality "1"
+    ]  .
+
+### http://www.asiainfo.com/ontology/5gc#UPFLicense
+5gc:UPFLicense rdf:type owl:Class ;
+    rdfs:subClassOf 5gc:License ;
+    rdfs:comment "UPF网元license配置类"@zh-CN ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:upfSpSessNum ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:upfSpBandWidth ;
+        owl:cardinality "1"
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty 5gc:upfSpNum ;
+        owl:cardinality "1"
+    ]  .
+
+#################################################################
+#    枚举类 (Enumeration Classes)
+#################################################################
+
+### http://www.asiainfo.com/ontology/5gc#NEType
+5gc:NEType rdf:type owl:Class ;
+    rdfs:comment "NEType枚举类型"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#InterfaceStatus
+5gc:InterfaceStatus rdf:type owl:Class ;
+    rdfs:comment "InterfaceStatus枚举类型"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#IPType
+5gc:IPType rdf:type owl:Class ;
+    rdfs:comment "IPType枚举类型"@zh-CN .
+
+### http://www.asiainfo.com/ontology/5gc#InterfaceType
+5gc:InterfaceType rdf:type owl:Class ;
+    rdfs:comment "InterfaceType枚举类型"@zh-CN .
+
+#################################################################
+#    枚举个体 (Enumeration Individuals)
+#################################################################
+
+### NEType 枚举
+5gc:AMF rdf:type owl:NamedIndividual , 5gc:NEType ;
+    rdfs:label "AMF"@zh-CN , "AMF"@en .
+
+5gc:SMF rdf:type owl:NamedIndividual , 5gc:NEType ;
+    rdfs:label "SMF"@zh-CN , "SMF"@en .
+
+5gc:UDM rdf:type owl:NamedIndividual , 5gc:NEType ;
+    rdfs:label "UDM"@zh-CN , "UDM"@en .
+
+5gc:UPF rdf:type owl:NamedIndividual , 5gc:NEType ;
+    rdfs:label "UPF"@zh-CN , "UPF"@en .
+
+### InterfaceStatus 枚举
+5gc:InterfaceUnknown rdf:type owl:NamedIndividual , 5gc:InterfaceStatus ;
+    rdfs:label "接口未知状态"@zh-CN , "infterface status UNKNOWN"@en .
+
+5gc:InterfaceUp rdf:type owl:NamedIndividual , 5gc:InterfaceStatus ;
+    rdfs:label "接口UP状态"@zh-CN , "infterface status UP"@en .
+
+5gc:InterfaceDown rdf:type owl:NamedIndividual , 5gc:InterfaceStatus ;
+    rdfs:label "接口DOWN状态"@zh-CN , "infterface status DOWN"@en .
+
+### IPType 枚举
+5gc:IPv4 rdf:type owl:NamedIndividual , 5gc:IPType ;
+    rdfs:label "IPv4"@zh-CN , "IPv4"@en .
+
+5gc:IPv6 rdf:type owl:NamedIndividual , 5gc:IPType ;
+    rdfs:label "IPv6"@zh-CN , "IPv6"@en .
+
+### InterfaceType 枚举
+5gc:InfterfaceN2 rdf:type owl:NamedIndividual , 5gc:InterfaceType ;
+    rdfs:label "InfterfaceN2"@zh-CN , "InfterfaceN2"@en .
+
+5gc:InfterfaceN3 rdf:type owl:NamedIndividual , 5gc:InterfaceType ;
+    rdfs:label "InfterfaceN3"@zh-CN , "InfterfaceN3"@en .
+
+5gc:InfterfaceN4 rdf:type owl:NamedIndividual , 5gc:InterfaceType ;
+    rdfs:label "InfterfaceN4"@zh-CN , "InfterfaceN4"@en .
+
+5gc:InfterfaceN6 rdf:type owl:NamedIndividual , 5gc:InterfaceType ;
+    rdfs:label "InfterfaceN6"@zh-CN , "InfterfaceN6"@en .
+
+5gc:InfterfaceN7 rdf:type owl:NamedIndividual , 5gc:InterfaceType ;
+    rdfs:label "InfterfaceN7"@zh-CN , "InfterfaceN7"@en .
+
+5gc:InfterfaceN8 rdf:type owl:NamedIndividual , 5gc:InterfaceType ;
+    rdfs:label "InfterfaceN8"@zh-CN , "InfterfaceN8"@en .
+
+5gc:InfterfaceN9 rdf:type owl:NamedIndividual , 5gc:InterfaceType ;
+    rdfs:label "InfterfaceN9"@zh-CN , "InfterfaceN9"@en .
+
+5gc:InfterfaceN10 rdf:type owl:NamedIndividual , 5gc:InterfaceType ;
+    rdfs:label "InfterfaceN10"@zh-CN , "InfterfaceN10"@en .
+
+5gc:InfterfaceN11 rdf:type owl:NamedIndividual , 5gc:InterfaceType ;
+    rdfs:label "InfterfaceN11"@zh-CN , "InfterfaceN11"@en .
+
+5gc:InfterfaceN12 rdf:type owl:NamedIndividual , 5gc:InterfaceType ;
+    rdfs:label "InfterfaceN12"@zh-CN , "InfterfaceN12"@en .
+
+5gc:InfterfaceN14 rdf:type owl:NamedIndividual , 5gc:InterfaceType ;
+    rdfs:label "InfterfaceN14"@zh-CN , "InfterfaceN14"@en .
+
+5gc:InfterfaceN15 rdf:type owl:NamedIndividual , 5gc:InterfaceType ;
+    rdfs:label "InfterfaceN15"@zh-CN , "InfterfaceN15"@en .
+
+5gc:InfterfaceN21 rdf:type owl:NamedIndividual , 5gc:InterfaceType ;
+    rdfs:label "InfterfaceN21"@zh-CN , "InfterfaceN21"@en .
+
+5gc:InfterfaceN22 rdf:type owl:NamedIndividual , 5gc:InterfaceType ;
+    rdfs:label "InfterfaceN22"@zh-CN , "InfterfaceN22"@en .
+
+5gc:InfterfaceS1u rdf:type owl:NamedIndividual , 5gc:InterfaceType ;
+    rdfs:label "InfterfaceS1u"@zh-CN , "InfterfaceS1u"@en .
+
+5gc:InfterfaceSgwuS5S8 rdf:type owl:NamedIndividual , 5gc:InterfaceType ;
+    rdfs:label "InfterfaceSgwuS5S8"@zh-CN , "InfterfaceSgwuS5S8"@en .
+
+5gc:InfterfacePgwuS5S8 rdf:type owl:NamedIndividual , 5gc:InterfaceType ;
+    rdfs:label "InfterfacePgwuS5S8"@zh-CN , "InfterfacePgwuS5S8"@en .
+
+### 本体文件结束 ###

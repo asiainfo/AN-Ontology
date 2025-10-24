@@ -1,0 +1,978 @@
+@prefix : <http://www.asiainfo.com/Ontology/Resource-Manage#ResourceManageOntology> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix network: <http://www.asiainfo.com/Ontology/Resource-Manage#> .
+@base <http://www.asiainfo.com/Ontology/Resource-Manage#ResourceManageOntology> .
+
+<http://www.asiainfo.com/Ontology/Resource-Manage#ResourceManageOntology> rdf:type owl:Ontology ;
+                                                               rdfs:comment "基于家客场景网络资源模型构建的完整Ontology，按类型划分实体后重新组织，覆盖所有实体及关联" ;
+                                                               owl:versionInfo "1.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.w3.org/2002/07/owl#cardinality
+owl:cardinality rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2002/07/owl#hasValue
+owl:hasValue rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2002/07/owl#maxCardinality
+owl:maxCardinality rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2002/07/owl#minCardinality
+owl:minCardinality rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#ONUisConnectedToPOSPort
+network:ONUisConnectedToPOSPort rdf:type owl:ObjectProperty ;
+                                rdfs:domain network:ONU ;
+                                rdfs:range network:POSPort ;
+                                rdfs:label "ONU上联分光器端口" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#belongsToCommunity
+network:belongsToCommunity rdf:type owl:ObjectProperty ;
+                           rdfs:domain network:Customer ;
+                           rdfs:range network:Community ;
+                           rdfs:label "所属小区" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#belongsToCustomer
+network:belongsToCustomer rdf:type owl:ObjectProperty ;
+                          rdfs:domain network:OTTDevice ;
+                          rdfs:range network:Customer ;
+                          rdfs:label "机顶盒归属客户" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#belongsToDistrict
+network:belongsToDistrict rdf:type owl:ObjectProperty ;
+                          rdfs:domain [ rdf:type owl:Class ;
+                                        owl:unionOf ( network:Address
+                                                      network:BroadbandService
+													  network:Customer
+                                                      network:Community
+                                                      network:FiberTTBox
+                                                      network:IMSService
+                                                      network:IPTVService
+                                                      network:MarketGrid
+                                                      network:MultimediaBox
+                                                      network:OLT
+													  network:OLTCard
+													  network:OLTPort
+                                                      network:ONU
+                                                      network:ONUPort
+                                                      network:OTTDevice
+                                                      network:PONCoverage
+                                                      network:POS
+                                                      network:POSPort
+                                                    )
+                                      ] ;
+                          rdfs:range network:District ;
+                          rdfs:label "所属区县" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#belongsToFiberTTBox
+network:belongsToFiberTTBox rdf:type owl:ObjectProperty ;
+                            rdfs:domain network:FiberDistributionPort ;
+                            rdfs:range network:FiberTTBox ;
+                            rdfs:label "所属分纤箱" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#belongsToMarketGrid
+network:belongsToMarketGrid rdf:type owl:ObjectProperty ;
+                            rdfs:domain network:Community ;
+                            rdfs:range network:MarketGrid ;
+                            rdfs:label "所属家客网格" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#belongsToOLTCard
+network:belongsToOLTCard rdf:type owl:ObjectProperty ;
+                         rdfs:domain network:OLTPort ;
+                         rdfs:range network:OLTCard ;
+                         rdfs:label "OLT端口所属板卡" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#belongsToONU
+network:belongsToONU rdf:type owl:ObjectProperty ;
+                     rdfs:domain network:ONUPort ;
+                     rdfs:range network:ONU ;
+                     rdfs:label "所属ONU" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#belongsToPOS
+network:belongsToPOS rdf:type owl:ObjectProperty ;
+                     rdfs:domain network:POSPort ;
+                     rdfs:range network:POS ;
+                     rdfs:label "所属分光器" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#containsFiberTTBox
+network:containsFiberTTBox rdf:type owl:ObjectProperty ;
+                           rdfs:domain network:CoverageCollection ;
+                           rdfs:range network:FiberTTBox ;
+                           rdfs:label "包含分纤箱" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#containsMultimediaBox
+network:containsMultimediaBox rdf:type owl:ObjectProperty ;
+                              rdfs:domain network:CoverageCollection ;
+                              rdfs:range network:MultimediaBox ;
+                              rdfs:label "包含多媒体箱" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#containsONU
+network:containsONU rdf:type owl:ObjectProperty ;
+                    rdfs:domain network:CoverageCollection ;
+                    rdfs:range network:ONU ;
+                    rdfs:label "包含ONU" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#containsPOS
+network:containsPOS rdf:type owl:ObjectProperty ;
+                    rdfs:domain network:CoverageCollection ;
+                    rdfs:range network:POS ;
+                    rdfs:label "包含分光器" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#coversAddress
+network:coversAddress rdf:type owl:ObjectProperty ;
+                      rdfs:domain network:PONCoverage ;
+                      rdfs:range network:Address ;
+                      rdfs:label "覆盖标准地址" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#coversCommunity
+network:coversCommunity rdf:type owl:ObjectProperty ;
+                        rdfs:domain network:MarketGrid ;
+                        rdfs:range network:Community ;
+                        rdfs:label "覆盖小区" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasAccessAddress
+network:hasAccessAddress rdf:type owl:ObjectProperty ;
+                         rdfs:domain network:Customer ;
+                         rdfs:range network:Address ;
+                         rdfs:label "关联标准地址" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasAddressReference
+network:hasAddressReference rdf:type owl:ObjectProperty ;
+                            rdfs:domain network:Community ;
+                            rdfs:range network:Address ;
+                            rdfs:label "关联标准地址" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasParentDistrict
+network:hasParentDistrict rdf:type owl:ObjectProperty ;
+                          rdfs:domain network:District ;
+                          rdfs:range network:District ;
+                          rdfs:comment "区域间的层级关联（地市→省份，区县→地市，对应模型中'上级区域'）" ;
+                          rdfs:label "上级区域" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#imsBelongsToCustomer
+network:imsBelongsToCustomer rdf:type owl:ObjectProperty ;
+                             rdfs:domain network:IMSService ;
+                             rdfs:range network:Customer ;
+                             rdfs:label "IMS归属客户" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#includesCollection
+network:includesCollection rdf:type owl:ObjectProperty ;
+                           rdfs:domain network:PONCoverage ;
+                           rdfs:range network:CoverageCollection ;
+                           rdfs:label "包含资源合集" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#installedInFiberTTBox
+network:installedInFiberTTBox rdf:type owl:ObjectProperty ;
+                              rdfs:domain network:POS ;
+                              rdfs:range network:FiberTTBox ;
+                              rdfs:label "分光器安装于分纤箱" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#installedInMultimediaBox
+network:installedInMultimediaBox rdf:type owl:ObjectProperty ;
+                                 rdfs:domain network:ONU ;
+                                 rdfs:range network:MultimediaBox ;
+                                 rdfs:label "ONU安装于多媒体箱" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#installedInOLT
+network:installedInOLT rdf:type owl:ObjectProperty ;
+                       rdfs:domain network:OLTCard ;
+                       rdfs:range network:OLT ;
+                       rdfs:label "板卡安装于OLT" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#iptvBelongsToCustomer
+network:iptvBelongsToCustomer rdf:type owl:ObjectProperty ;
+                              rdfs:domain network:IPTVService ;
+                              rdfs:range network:Customer ;
+                              rdfs:label "IPTV归属客户" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#isAssociatedWithBroadband
+network:isAssociatedWithBroadband rdf:type owl:ObjectProperty ;
+                                  rdfs:domain [ rdf:type owl:Class ;
+                                                owl:unionOf ( network:IMSService
+                                                              network:IPTVService
+                                                            )
+                                              ] ;
+                                  rdfs:range network:BroadbandService ;
+                                  rdfs:label "关联宽带业务" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#isCascadedWithPOS
+network:isCascadedWithPOS rdf:type owl:ObjectProperty ;
+                          rdfs:domain network:POS ;
+                          rdfs:range network:POS ;
+                          rdfs:label "分光器级联分光器" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#isConnectedToOLT
+network:isConnectedToOLT rdf:type owl:ObjectProperty ;
+                         rdfs:domain network:POS ;
+                         rdfs:range network:OLT ;
+                         rdfs:label "分光器上联到OLT" .
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#isConnectedToOLT_ONU
+network:isConnectedToOLT_ONU rdf:type owl:ObjectProperty ;
+                             rdfs:domain network:ONU ;
+                             rdfs:range network:OLT ;
+                             rdfs:label "ONU上联到OLT" .
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#isConnectedToOLTPort_ONU
+network:isConnectedToOLTPort_ONU rdf:type owl:ObjectProperty ;
+                                 rdfs:domain network:ONU ;
+                                 rdfs:range network:OLTPort ;
+                                 rdfs:label "ONU上联到OLT端口" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#isConnectedToOLTPort_POS
+network:isConnectedToOLTPort_POS rdf:type owl:ObjectProperty ;
+                                 rdfs:domain network:POS ;
+                                 rdfs:range network:OLTPort ;
+                                 rdfs:label "分光器上联OLT端口" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#isConnectedToONU
+network:isConnectedToONU rdf:type owl:ObjectProperty ;
+                         rdfs:domain network:OTTDevice ;
+                         rdfs:range network:ONU ;
+                         rdfs:label "机顶盒上连ONU" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#isConnectedToPOS
+network:isConnectedToPOS rdf:type owl:ObjectProperty ;
+                         rdfs:domain network:ONU ;
+                         rdfs:range network:POS ;
+                         rdfs:label "ONU上联分光器" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#isOwnedByCustomer
+network:isOwnedByCustomer rdf:type owl:ObjectProperty ;
+						  rdfs:domain [ rdf:type owl:Class ;
+                                        owl:unionOf ( network:IMSService
+                                                      network:IPTVService
+													  network:BroadbandService
+                                                    )
+                                      ] ;
+                          rdfs:range network:Customer ;
+                          rdfs:label "归属客户" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#oltPortBelongsToOLT
+network:oltPortBelongsToOLT rdf:type owl:ObjectProperty ;
+                            rdfs:domain network:OLTPort ;
+                            rdfs:range network:OLT ;
+                            rdfs:label "OLT端口归属OLT" .
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasParentAddress
+network:hasParentAddress rdf:type owl:ObjectProperty ;
+                         rdfs:domain network:Address ;
+                         rdfs:range network:Address ;
+                         rdfs:comment "地址间的层级关联（楼栋→单元，单元→楼层，对应模型中'上级地址'）" ;
+                         rdfs:label "上级地址" .
+							  
+###  http://www.asiainfo.com/Ontology/Resource-Manage#broadbandBelongsToONU
+network:broadbandBelongsToONU rdf:type owl:ObjectProperty ;
+							  rdfs:domain network:BroadbandService ;
+							  rdfs:range network:ONU ;
+							  rdfs:label "宽带业务所属ONU" .
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasPonCoverageAddress
+network:hasPonCoverageAddress rdf:type owl:ObjectProperty ;
+                              rdfs:domain network:PONCoverage ;
+                              rdfs:range network:Address ;
+                              rdfs:label "PON覆盖地址" .	
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasRoom
+network:hasRoom rdf:type owl:ObjectProperty ;
+                rdfs:domain network:OLT ;
+                rdfs:range network:Room ;
+                rdfs:label "所属机房" .								  
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasPoi
+network:hasPoi rdf:type owl:ObjectProperty ;
+               rdfs:domain network:OLT ;
+               rdfs:range network:POI ;
+               rdfs:label "所属位置点" .	
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasResourceId
+network:hasResourceId rdf:type owl:DatatypeProperty ;
+                      rdfs:comment "标准地址、设备等通用标识" .
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasLifeState
+network:hasLifeState rdf:type owl:DatatypeProperty ;
+                     rdfs:domain network:Address ,
+                                 network:Community ,
+								 network:ONU ,
+								 network:POS ,
+								 network:OLT ,
+								 network:MultimediaBox ,
+								 network:FiberTTBox ,
+								 network:MarketGrid ;
+                     rdfs:comment "生命周期状态" ;
+					 rdfs:label "生命周期状态" .
+					 
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasVendor
+network:hasVendor rdf:type owl:DatatypeProperty ;
+                  rdfs:domain network:OTTDevice ,
+							  network:OLT ,
+							  network:ONU ;
+                  rdfs:comment "设备厂家" ;
+				  rdfs:label "设备厂家" .
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasOwnership
+network:hasOwnership rdf:type owl:DatatypeProperty ;
+					 rdfs:domain network:POS ,
+							     network:ONU ,
+								 network:MultimediaBox ,
+								 network:FiberTTBox ;
+                     rdfs:comment "资产归属" ;
+				     rdfs:label "资产归属" .
+					 
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasBuildOwner
+network:hasBuildOwner rdf:type owl:DatatypeProperty ;
+					  rdfs:domain network:POS ,
+							      network:ONU ,
+								  network:MultimediaBox ,
+								  network:FiberTTBox ;
+                      rdfs:comment "建设归属" ;
+				      rdfs:label "建设归属" .					 
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasBroadbandProductId
+network:hasBroadbandProductId rdf:type owl:DatatypeProperty ;
+                              rdfs:domain network:BroadbandService ;
+                              rdfs:range xsd:string ;
+                              rdfs:comment "宽带业务的唯一标识（对应模型中'宽带产品实例标识'）" ;
+                              rdfs:label "宽带产品实例标识" .
+							  
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasBroadbandProductAccount
+network:hasBroadbandProductAccount rdf:type owl:DatatypeProperty ;
+								   rdfs:domain network:BroadbandService ,
+											   network:IPTVService ;
+								   rdfs:range xsd:string ;
+								   rdfs:comment "宽带、互联网电视业务的业务账号" ;
+								   rdfs:label "业务账号" .	
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasBroadbandAccessType
+network:hasBroadbandAccessType rdf:type owl:DatatypeProperty ;
+							   rdfs:domain network:BroadbandService ;
+							   rdfs:range xsd:string ;
+							   rdfs:comment "宽带的接入方式，例如：FTTB、FTTH" ;
+							   rdfs:label "宽带接入方式" .	
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasBizState
+network:hasBizState rdf:type owl:DatatypeProperty ;
+					rdfs:domain network:BroadbandService ,
+                                network:IMSService ,
+                                network:IPTVService ;
+					rdfs:range xsd:string ;
+					rdfs:comment "客户业务状态，例如：已开通、已拆除、工程" ;
+					rdfs:label "客户业务状态" .							   
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasBandRate
+network:hasBandRate rdf:type owl:DatatypeProperty ;
+					rdfs:domain network:BroadbandService ;
+					rdfs:range xsd:string ;
+					rdfs:comment "带宽速率，例如：1000M、500M" ;
+					rdfs:label "带宽速率" .		
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasIsBusinessBroadband
+network:hasIsBusinessBroadband rdf:type owl:DatatypeProperty ;
+							   rdfs:domain network:BroadbandService ;
+							   rdfs:range xsd:string ;
+							   rdfs:comment "是否企宽用户，例如：是、否" ;
+							   rdfs:label "是否企宽用户" .					
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasCommunityName
+network:hasCommunityName rdf:type owl:DatatypeProperty ;
+						 rdfs:domain network:Community ;
+						 rdfs:range xsd:string ;
+                         rdfs:comment "小区名称" ;
+						 rdfs:label "小区名称" .		
+						 
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasZoneType
+network:hasZoneType rdf:type owl:DatatypeProperty ;
+					rdfs:domain network:Community ;
+					rdfs:range xsd:string ;
+                    rdfs:comment "地域属性，例如：城市、乡镇、农村" ;
+					rdfs:label "小区地域属性" .
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasDistrictName
+network:hasDistrictName rdf:type owl:DatatypeProperty ;
+                        rdfs:domain network:District ;
+                        rdfs:range xsd:string ;
+                        rdfs:comment "省份、地市或区县的名称（对应模型中'省份名称'及区域通用名称）" ;
+                        rdfs:label "区域名称" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasDistrictType
+network:hasDistrictType rdf:type owl:DatatypeProperty ;
+                        rdfs:domain network:District ;
+                        rdfs:range xsd:string ;
+                        rdfs:comment "枚举值：省份、地市、区县（区分区域层级）" ;
+                        rdfs:label "区域类型" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasIMSServiceType
+network:hasIMSServiceType rdf:type owl:DatatypeProperty ;
+                          rdfs:domain network:IMSService ;
+                          rdfs:range xsd:string ;
+                          rdfs:comment "IMS业务的具体类型（补充模型细节）" ;
+                          rdfs:label "IMS业务类型" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasIPTVServiceType
+network:hasIPTVServiceType rdf:type owl:DatatypeProperty ;
+                           rdfs:domain network:IPTVService ;
+                           rdfs:range xsd:string ;
+                           rdfs:comment "IPTV业务的具体类型（补充模型细节）" ;
+                           rdfs:label "IPTV业务类型" .
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasAddressLevel
+network:hasAddressLevel rdf:type owl:DatatypeProperty ;
+                        rdfs:domain network:Address ;
+                        rdfs:range xsd:string ;
+                        rdfs:comment "标准地址的地址级别" ;
+                        rdfs:label "地址级别" .
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasCurrentName
+network:hasCurrentName rdf:type owl:DatatypeProperty ;
+                       rdfs:domain network:Address ;
+                       rdfs:range xsd:string ;
+                       rdfs:comment "标准地址的地址分段名称" ;
+                       rdfs:label "地址分段名称" .
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasFullName
+network:hasFullName rdf:type owl:DatatypeProperty ;
+                    rdfs:domain network:Address ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "标准地址的地址完整名称" ;
+                    rdfs:label "地址完整名称" .
+				
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasCustomerCode
+network:hasCustomerCode rdf:type owl:DatatypeProperty ;
+						rdfs:domain network:Customer ;
+						rdfs:range xsd:string ;
+						rdfs:comment "客户的唯一标识" ;
+						rdfs:label "家庭客户编号" .							
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasCustomerType
+network:hasCustomerType rdf:type owl:DatatypeProperty ;
+						rdfs:domain network:Customer ;
+						rdfs:range xsd:string ;
+						rdfs:comment "客户的类型，例如：家庭用户、政企用户" ;
+						rdfs:label "客户类型" .
+						
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasProductType
+network:hasProductType rdf:type owl:DatatypeProperty ;
+					   rdfs:domain network:Customer ;
+					   rdfs:range xsd:string ;
+					   rdfs:comment "客户所使用的产品类型，例如：宽带、固话" ;
+					   rdfs:label "客户产品类型" .	
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasGridName
+network:hasGridName rdf:type owl:DatatypeProperty ;
+					rdfs:domain network:MarketGrid ;
+					rdfs:range xsd:string ;
+					rdfs:comment "网格名称" ;
+					rdfs:label "网格名称" .	
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasOttAccount
+network:hasOttAccount rdf:type owl:DatatypeProperty ;
+					  rdfs:domain network:OTTDevice ;
+					  rdfs:range xsd:string ;
+					  rdfs:comment "机顶盒用户账号（电视业务用户账号）" ;
+					  rdfs:label "机顶盒用户账号" .	
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasOttModel
+network:hasOttModel rdf:type owl:DatatypeProperty ;
+					rdfs:domain network:OTTDevice ;
+					rdfs:range xsd:string ;
+					rdfs:comment "用户机顶盒对应型号" ;
+					rdfs:label "机顶盒设备型号" .	
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasOttWirelessMac
+network:hasOttWirelessMac rdf:type owl:DatatypeProperty ;
+						  rdfs:domain network:OTTDevice ;
+						  rdfs:range xsd:string ;
+						  rdfs:comment "用户机顶盒对应MAC" ;
+						  rdfs:label "机顶盒有线MAC地址" .		
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasOttOwner
+network:hasOttOwner rdf:type owl:DatatypeProperty ;
+					rdfs:domain network:OTTDevice ;
+					rdfs:range xsd:string ;
+					rdfs:comment "牌照方，例如：银河、未来电视、百视通" ;
+					rdfs:label "机顶盒牌照方" .							  
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasCoverageType
+network:hasCoverageType rdf:type owl:DatatypeProperty ;
+					    rdfs:domain network:PONCoverage ;
+					    rdfs:range xsd:string ;
+					    rdfs:comment "覆盖场景类型，例如：沿街商铺、商住楼宇" ;
+					    rdfs:label "覆盖场景类型" .						  
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasResourceCoverage
+network:hasResourceCoverage rdf:type owl:DatatypeProperty ;
+							rdfs:domain network:PONCoverage ;
+							rdfs:range xsd:string ;
+							rdfs:comment "资源覆盖程度，例如：到微网格、到园区、到楼、到层" ;
+							rdfs:label "资源覆盖程度" .
+							
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasIsShare
+network:hasIsShare rdf:type owl:DatatypeProperty ;
+				   rdfs:domain network:PONCoverage ;
+				   rdfs:range xsd:string ;
+				   rdfs:comment "是否共建共享，例如：是、否" ;
+				   rdfs:label "是否共建共享" .							
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasPonCoverageType
+network:hasPonCoverageType rdf:type owl:DatatypeProperty ;
+						   rdfs:domain network:PONCoverage ;
+						   rdfs:range xsd:string ;
+						   rdfs:comment "PON覆盖类型，例如：FTTB、FTTH" ;
+						   rdfs:label "PON覆盖类型" .
+						   
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasPonCoverageResourceType
+network:hasPonCoverageResourceType rdf:type owl:DatatypeProperty ;
+								   rdfs:domain network:CoverageCollection ;
+								   rdfs:range xsd:string ;
+								   rdfs:comment "资源类型，例如：分纤箱、多媒体箱、分光器、ONU" ;
+								   rdfs:label "覆盖资源类型" .						   
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasCoverageLevel
+network:hasCoverageLevel rdf:type owl:DatatypeProperty ;
+                         rdfs:comment "PON覆盖程度" .
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasOnuName
+network:hasOnuName rdf:type owl:DatatypeProperty ;
+				   rdfs:domain network:ONU ;
+				   rdfs:range xsd:string ;
+				   rdfs:comment "ONU名称" ;
+				   rdfs:label "ONU名称" .	
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasAuthCode
+network:hasAuthCode rdf:type owl:DatatypeProperty ;
+					rdfs:domain network:ONU ;
+					rdfs:range xsd:string ;
+					rdfs:comment "ONU认证码" ;
+                    rdfs:label "ONU认证码" .
+					
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasOnuAccessType
+network:hasOnuAccessType rdf:type owl:DatatypeProperty ;
+						 rdfs:domain network:ONU ;
+						 rdfs:range xsd:string ;
+						 rdfs:comment "ONU接入方式，例如：FTTB、FTTH" ;
+						 rdfs:label "ONU接入方式" .	
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasOnuPortNo
+network:hasOnuPortNo rdf:type owl:DatatypeProperty ;
+					 rdfs:domain network:ONUPort ;
+				     rdfs:range xsd:string ;
+					 rdfs:comment "ONU端口号" ;
+					 rdfs:label "ONU端口号" .	
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasOnuPortType
+network:hasOnuPortType rdf:type owl:DatatypeProperty ;
+					   rdfs:domain network:ONUPort ;
+				       rdfs:range xsd:string ;
+					   rdfs:comment "ONU端口类型，例如：宽带口、语音口、上联口、其他" ;
+					   rdfs:label "ONU端口类型" .					 
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasOnuSubclass
+network:hasOnuSubclass rdf:type owl:DatatypeProperty ;
+					   rdfs:domain network:ONU ;
+					   rdfs:range xsd:string ;
+					   rdfs:comment "ONU设备子类，例如：SFU、HGU、iHGU" ;
+					   rdfs:label "ONU设备子类" .						 
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasPosName
+network:hasPosName rdf:type owl:DatatypeProperty ;
+				   rdfs:domain network:POS ;
+				   rdfs:range xsd:string ;
+				   rdfs:comment "分光器名称" ;
+				   rdfs:label "分光器名称" .	
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasSplitterRatio
+network:hasSplitterRatio rdf:type owl:DatatypeProperty ;
+						 rdfs:domain network:POS ;
+						 rdfs:range xsd:string ;
+						 rdfs:comment "分光器分光比" ;
+                         rdfs:label "分光器分光比" .
+						 
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasPosLevel
+network:hasPosLevel rdf:type owl:DatatypeProperty ;
+					rdfs:domain network:POS ;
+					rdfs:range xsd:string ;
+					rdfs:comment "分光器级别" ;
+                    rdfs:label "分光器级别" .	
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasPosPortNo
+network:hasPosPortNo rdf:type owl:DatatypeProperty ;
+					 rdfs:domain network:POSPort ;
+				     rdfs:range xsd:string ;
+					 rdfs:comment "分光器端口号" ;
+					 rdfs:label "分光器端口号" .
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasPosPortState
+network:hasPosPortState rdf:type owl:DatatypeProperty ;
+						rdfs:domain network:POSPort ;
+					    rdfs:range xsd:string ;
+					    rdfs:comment "分光器端口状态，例如：空闲、占用、预占、故障、其他" ;
+					    rdfs:label "分光器端口状态" .						 
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasBoxName
+network:hasBoxName rdf:type owl:DatatypeProperty ;
+                   rdfs:domain network:MultimediaBox ,
+							   network:FiberTTBox ;
+                   rdfs:comment "箱体名称，包含多媒体箱、分纤箱等" ;
+				   rdfs:label "箱体名称" .
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasBoxDeviceType
+network:hasBoxDeviceType rdf:type owl:DatatypeProperty ;
+						 rdfs:domain network:FiberTTBox ;
+					     rdfs:range xsd:string ;
+					     rdfs:comment "箱体内设备类型，例如：分光器，法兰盘，直熔" ;
+					     rdfs:label "箱体内设备类型" .					   
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasFiberBoxPortNo
+network:hasFiberBoxPortNo rdf:type owl:DatatypeProperty ;
+						  rdfs:domain network:FiberDistributionPort ;
+						  rdfs:range xsd:string ;
+						  rdfs:comment "分纤箱端子端口号" ;
+						  rdfs:label "分纤箱端子端口号" .	
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasFiberBoxPortState
+network:hasFiberBoxPortState rdf:type owl:DatatypeProperty ;
+							 rdfs:domain network:FiberDistributionPort ;
+							 rdfs:range xsd:string ;
+							 rdfs:comment "分纤箱端子端口状态，例如：空闲、占用、预占、故障、其他" ;
+							 rdfs:label "分纤箱端子端口状态" .
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasOltName
+network:hasOltName rdf:type owl:DatatypeProperty ;
+                   rdfs:domain network:OLT ;
+                   rdfs:comment "OLT名称" ;
+				   rdfs:label "OLT名称" .
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasOltNeType
+network:hasOltNeType rdf:type owl:DatatypeProperty ;
+					 rdfs:domain network:OLT ;
+                     rdfs:comment "OLT网元类型" ;
+				     rdfs:label "OLT网元类型" .
+	
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasOltServiceLevel
+network:hasOltServiceLevel rdf:type owl:DatatypeProperty ;
+						   rdfs:domain network:OLT ;
+						   rdfs:comment "OLT业务级别，例如：OTN、WDM、SDH、MSTP" ;
+						   rdfs:label "OLT业务级别" .	
+				   
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasOltCardName
+network:hasOltCardName rdf:type owl:DatatypeProperty ;
+					   rdfs:domain network:OLTCard ;
+					   rdfs:comment "OLT板卡名称" ;
+					   rdfs:label "OLT板卡名称" .				   
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasOltPortName
+network:hasOltPortName rdf:type owl:DatatypeProperty ;
+					   rdfs:domain network:OLTPort ;
+					   rdfs:comment "OLT端口名称" ;
+					   rdfs:label "OLT端口名称" .	
+					   
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasOltPortState
+network:hasOltPortState rdf:type owl:DatatypeProperty ;
+						rdfs:domain network:OLTPort ;
+						rdfs:range xsd:string ;
+						rdfs:comment "OLT端口状态，例如：空闲、预占用、占用" ;
+						rdfs:label "OLT端口状态" .					   
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#hasOltPortPhysicsType
+network:hasOltPortPhysicsType rdf:type owl:DatatypeProperty ;
+							  rdfs:domain network:OLTPort ;
+							  rdfs:range xsd:string ;
+							  rdfs:comment "OLT端口模块类型，例如：光口、电口、逻辑口、MSTP口" ;
+							  rdfs:label "OLT端口模块类型" .
+				   
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#Address
+network:Address rdf:type owl:Class ;
+                rdfs:subClassOf network:Space ;
+                rdfs:comment "对应模型中'标准地址'，包含分级地址及所属区县关联" ;
+                rdfs:label "标准地址" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#BroadbandService
+network:BroadbandService rdf:type owl:Class ;
+                         rdfs:subClassOf network:HomeCustomer ;
+                         rdfs:comment "对应模型中'宽带业务'，包含产品标识及客户、区县关联" ;
+                         rdfs:label "宽带业务信息" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#Community
+network:Community rdf:type owl:Class ;
+                  rdfs:subClassOf network:HomeCustomer ;
+                  rdfs:comment "对应模型中'小区'，关联标准地址、区县及家客网格" ;
+                  rdfs:label "小区信息" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#CoverageCollection
+network:CoverageCollection rdf:type owl:Class ;
+                           rdfs:subClassOf network:ServiceSceneCoverage ;
+                           rdfs:comment "对应模型中'覆盖资源合集'，关联分纤箱、多媒体箱、分光器、ONU" ;
+                           rdfs:label "覆盖资源合集" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#Customer
+network:Customer rdf:type owl:Class ;
+                 rdfs:subClassOf network:HomeCustomer ;
+                 rdfs:comment "对应模型中'家庭客户'，关联标准地址和小区" ;
+                 rdfs:label "家庭客户实例" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#District
+network:District rdf:type owl:Class ;
+                 rdfs:subClassOf network:Space ;
+                 rdfs:comment "对应模型中'省份'、'地市'、'区县'，包含区域层级关系" ;
+                 rdfs:label "区域（省/市/区县）" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#FiberDistributionPort
+network:FiberDistributionPort rdf:type owl:Class ;
+                              rdfs:subClassOf network:ServiceSceneCoverage ;
+                              rdfs:comment "对应模型中'分纤箱端子'，关联分纤箱" ;
+                              rdfs:label "分纤箱端子" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#FiberTTBox
+network:FiberTTBox rdf:type owl:Class ;
+                   rdfs:subClassOf network:ServiceSceneCoverage ;
+                   rdfs:comment "对应模型中'分纤箱',关联区县" ;
+                   rdfs:label "分纤箱" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#HomeCustomer
+network:HomeCustomer rdf:type owl:Class ;
+                     rdfs:comment "包含所有家客相关实体的父类" ;
+                     rdfs:label "家客类型" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#IMSService
+network:IMSService rdf:type owl:Class ;
+                   rdfs:subClassOf network:HomeCustomer ;
+                   rdfs:comment "对应模型中'IMS业务'，关联宽带业务、客户及区县" ;
+                   rdfs:label "IMS业务信息" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#IPTVService
+network:IPTVService rdf:type owl:Class ;
+                    rdfs:subClassOf network:HomeCustomer ;
+                    rdfs:comment "对应模型中'互联网电视业务'，关联宽带业务、客户及区县" ;
+                    rdfs:label "互联网电视业务信息" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#MarketGrid
+network:MarketGrid rdf:type owl:Class ;
+                   rdfs:subClassOf network:HomeCustomer ;
+                   rdfs:comment "对应模型中'家客小区网格'，关联小区及区县" ;
+                   rdfs:label "家客小区网格" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#MultimediaBox
+network:MultimediaBox rdf:type owl:Class ;
+                      rdfs:subClassOf network:ServiceSceneCoverage ;
+                      rdfs:comment "对应模型中'多媒体箱'，关联区县" ;
+                      rdfs:label "多媒体箱" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#OLT
+network:OLT rdf:type owl:Class ;
+            rdfs:subClassOf network:TransmissionInnerLine ;
+            rdfs:comment "对应模型中'OLT'，关联区县" ;
+            rdfs:label "OLT设备" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#OLTCard
+network:OLTCard rdf:type owl:Class ;
+                rdfs:subClassOf network:TransmissionInnerLine ;
+                rdfs:comment "对应模型中'OLT板卡'，关联OLT" ;
+                rdfs:label "OLT板卡" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#OLTPort
+network:OLTPort rdf:type owl:Class ;
+                rdfs:subClassOf network:TransmissionInnerLine ;
+                rdfs:comment "对应模型中'OLT端口'，关联OLT及OLT板卡" ;
+                rdfs:label "OLT端口" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#ONU
+network:ONU rdf:type owl:Class ;
+            rdfs:subClassOf network:ServiceSceneCoverage ;
+            rdfs:comment "对应模型中'ONU'，关联分光器、分光器端口、OLT及区县" ;
+            rdfs:label "ONU设备" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#ONUPort
+network:ONUPort rdf:type owl:Class ;
+                rdfs:subClassOf network:ServiceSceneCoverage ;
+                rdfs:comment "对应模型中'ONU端口'，关联ONU及区县" ;
+                rdfs:label "ONU端口" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#OTTDevice
+network:OTTDevice rdf:type owl:Class ;
+                  rdfs:subClassOf network:HomeCustomer ;
+                  rdfs:comment "对应模型中'机顶盒'，关联家庭客户、ONU及区县" ;
+                  rdfs:label "机顶盒" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#POI
+network:POI rdf:type owl:Class ;
+            rdfs:subClassOf network:Space ;
+            rdfs:comment "空间资源中的位置点（模型未详述，沿用原定义）" ;
+            rdfs:label "位置点" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#PONCoverage
+network:PONCoverage rdf:type owl:Class ;
+                    rdfs:subClassOf network:ServiceSceneCoverage ;
+                    rdfs:comment "对应模型中'业务场景PON覆盖'，关联政企场景、标准地址、资源合集及区县" ;
+                    rdfs:label "业务场景PON覆盖" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#POS
+network:POS rdf:type owl:Class ;
+            rdfs:subClassOf network:ServiceSceneCoverage ;
+            rdfs:comment "对应模型中'分光器'，关联分纤箱、OLT、分光器及区县" ;
+            rdfs:label "分光器" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#POSPort
+network:POSPort rdf:type owl:Class ;
+                rdfs:subClassOf network:ServiceSceneCoverage ;
+                rdfs:comment "对应模型中'分光器端口'，关联分光器及区县" ;
+                rdfs:label "分光器端口" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#Room
+network:Room rdf:type owl:Class ;
+             rdfs:subClassOf network:Space ;
+             rdfs:comment "空间资源中的机房（模型未详述，沿用原定义）" ;
+             rdfs:label "机房" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#ServiceSceneCoverage
+network:ServiceSceneCoverage rdf:type owl:Class ;
+                             rdfs:comment "包含所有业务场景覆盖相关实体的父类" ;
+                             rdfs:label "业务场景覆盖类型" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#Site
+network:Site rdf:type owl:Class ;
+             rdfs:subClassOf network:Space ;
+             rdfs:comment "空间资源中的站点（模型未详述，沿用原定义）" ;
+             rdfs:label "站点" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#Space
+network:Space rdf:type owl:Class ;
+              rdfs:comment "包含所有空间相关实体的父类" ;
+              rdfs:label "空间类型" .
+
+
+###  http://www.asiainfo.com/Ontology/Resource-Manage#TransmissionInnerLine
+network:TransmissionInnerLine rdf:type owl:Class ;
+                              rdfs:comment "包含所有传输内线相关实体的父类" ;
+                              rdfs:label "传输内线类型" .
+
+
+[ owl:hasValue "省份"
+] .
+
+[ owl:hasValue "省份"
+ ] .
+
+[ owl:hasValue "地市"
+ ] .
+
+[ owl:hasValue "地市"
+ ] .
+
+[ owl:hasValue "区县"
+ ] .
+
+#################################################################
+#    Annotations
+#################################################################
+
+network:BroadbandProductIdMandatory owl:cardinality 1 .
+
+
+network:CoverageCollectionMandatory owl:minCardinality "1"^^xsd:nonNegativeInteger .
+
+
+network:FiberPortBoxMandatory owl:cardinality 1 .
+
+
+network:IMSBroadbandMandatory owl:cardinality 1 .
+
+
+network:IPTVBbroadbandMandatory owl:cardinality 1 .
+
+
+network:ONUPortONUMandatory owl:cardinality 1 .
+
+
+network:POSPortPOSMandatory owl:cardinality 1 .
+
+
+network:ProvinceConstraint owl:maxCardinality "0"^^xsd:nonNegativeInteger .
+
+
+network:STBONUMandatory owl:cardinality 1 .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
